@@ -2,20 +2,39 @@ package com.inspektorat.kadelebak.view.kade_dashboard.fragment;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
+import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
+import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
+
+import java.util.List;
+import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements DashboardView.Fitur {
 
+
+    @BindView(R.id.ll_top_dashboard)
+    LinearLayout llTopDashboard;
+    @BindView(R.id.rv_dashboard_fitur)
+    RecyclerView recyclerView;
+
+    DashboardPresenter presenter;
+    FiturAdapter fiturAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -26,7 +45,41 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this,view);
+        initPresenter();
+        setRecyclerview();
+        return view;
     }
 
+    private void initPresenter() {
+        presenter = new DashboardPresenter(this);
+        presenter.setFitur(Objects.requireNonNull(getActivity()).getApplicationContext().getResources().getStringArray(R.array.feature_item));
+    }
+
+    private void setRecyclerview() {
+        recyclerView.setLayoutManager(new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(),2));
+        recyclerView.setAdapter(fiturAdapter);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void showDataFitur(List<String> listFitur) {
+        fiturAdapter = new FiturAdapter(getActivity().getApplicationContext(), listFitur);
+        fiturAdapter.notifyDataSetChanged();
+    }
 }

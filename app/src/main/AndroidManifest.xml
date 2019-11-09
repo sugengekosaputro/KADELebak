@@ -16,7 +16,8 @@
 		<activity android:name=".view.kade_complaint.ComplaintActivity" android:label="@string/label_complaint"/>
 		<activity
 			android:name=".view.kade_dashboard.DashboardActivity"
-			android:label="@string/app_name">
+			android:label="@string/app_name"
+			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
