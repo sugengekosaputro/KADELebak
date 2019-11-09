@@ -6,49 +6,37 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.view.kade_complaint.ComplaintActivity;
+import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
 import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
 import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
 import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
-import com.inspektorat.kadelebak.view.kade_profile.ProfileActivity;
-import com.inspektorat.kadelebak.view.kade_support.SupportActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.MenuItem;
-import android.widget.TextView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DashboardActivity extends Activity implements DashboardView.Fitur {
+public class DashboardActivity extends AppCompatActivity implements DashboardView.Fitur{
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        return true;
-                    case R.id.navigation_dashboard:
-                        intent = new Intent(DashboardActivity.this.getApplicationContext(), ComplaintActivity.class);
-                        DashboardActivity.this.startActivity(intent);
-                        break;
-                    case R.id.navigation_notifications:
-                        intent = new Intent(DashboardActivity.this.getApplicationContext(), SupportActivity.class);
-                        DashboardActivity.this.startActivity(intent);
-                        break;
-                    case R.id.navigation_profile:
-                        intent = new Intent(DashboardActivity.this.getApplicationContext(), ProfileActivity.class);
-                        DashboardActivity.this.startActivity(intent);
-                        break;
-                }
-                return false;
-            };
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new HomeFragment())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            case R.id.navigation_dashboard:
+                return true;
+            case R.id.navigation_notifications:
+                return true;
+            case R.id.navigation_profile:
+                return true;
+        }
+        return false;
+    };
 
     @BindView(R.id.botom_nav)
     BottomNavigationView bottomNavigationView;
@@ -67,6 +55,11 @@ public class DashboardActivity extends Activity implements DashboardView.Fitur {
         initPresenter();
         setRecyclerview();
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer, new HomeFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void initPresenter() {
