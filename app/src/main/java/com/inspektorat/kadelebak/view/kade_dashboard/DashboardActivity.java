@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_complaint.ComplaintActivity;
+import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
+import com.inspektorat.kadelebak.view.kade_dashboard.fragment.TestFragment;
 import com.inspektorat.kadelebak.view.kade_profile.ProfileActivity;
 import com.inspektorat.kadelebak.view.kade_support.SupportActivity;
 
@@ -19,32 +21,32 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DashboardActivity extends Activity {
+public class DashboardActivity extends AppCompatActivity {
+    @BindView(R.id.botom_nav)
+    BottomNavigationView bottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-        Intent intent;
         switch (item.getItemId()) {
             case R.id.navigation_home:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new HomeFragment())
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             case R.id.navigation_dashboard:
-                intent = new Intent(getApplicationContext(), ComplaintActivity.class);
-                startActivity(intent);
-                break;
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new TestFragment())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
             case R.id.navigation_notifications:
-                intent = new Intent(getApplicationContext(), SupportActivity.class);
-                startActivity(intent);
-                break;
+                return true;
             case R.id.navigation_profile:
-                intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(intent);
-                break;
+                return true;
         }
         return false;
     };
-
-    @BindView(R.id.botom_nav)
-    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,11 @@ public class DashboardActivity extends Activity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer, new HomeFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
 }
