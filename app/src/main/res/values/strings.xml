@@ -4,6 +4,12 @@
 	<string name="title_home">Home</string>
 	<string name="title_dashboard">Dashboard</string>
 	<string name="title_notifications">Notifications</string>
+	<string name="label_complaint">Pengaduan</string>
+	<string name="label_support">Bantuan</string>
+	<string name="label_profile">Profil</string>
+	<string name="label_forum">Forum</string>
+	<string name="label_village">Informasi Desa</string>
+
 	<string name="home_content_news">Berita Terbaru</string>
 	<string name="home_content_feature">Fitur</string>
 	<string name="title_activity_profile">ProfileActivity</string>

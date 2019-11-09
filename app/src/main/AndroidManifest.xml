@@ -9,9 +9,11 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_support.SupportActivity"></activity>
-		<activity android:name=".view.kade_profile.ProfileActivity" />
-		<activity android:name=".view.kade_complaint.ComplaintActivity" />
+		<activity android:name=".view.kade_village.VillageActivity" android:label="@string/label_village"/>
+		<activity android:name=".view.kade_forum.ForumActivity" android:label="@string/label_forum" />
+		<activity android:name=".view.kade_support.SupportActivity" android:label="@string/label_support"/>
+		<activity android:name=".view.kade_profile.ProfileActivity" android:label="@string/label_profile"/>
+		<activity android:name=".view.kade_complaint.ComplaintActivity" android:label="@string/label_complaint"/>
 		<activity
 			android:name=".view.kade_dashboard.DashboardActivity"
 			android:label="@string/app_name">
