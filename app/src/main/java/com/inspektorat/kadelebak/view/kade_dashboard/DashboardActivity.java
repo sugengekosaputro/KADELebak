@@ -6,24 +6,18 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.view.kade_complaint.ComplaintActivity;
 import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
-import com.inspektorat.kadelebak.view.kade_dashboard.fragment.TestFragment;
-import com.inspektorat.kadelebak.view.kade_profile.ProfileActivity;
-import com.inspektorat.kadelebak.view.kade_support.SupportActivity;
-
+import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
+import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
+import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-
-import android.view.MenuItem;
-import android.widget.TextView;
-
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DashboardActivity extends AppCompatActivity {
-    @BindView(R.id.botom_nav)
-    BottomNavigationView bottomNavigationView;
+public class DashboardActivity extends AppCompatActivity implements DashboardView.Fitur{
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -35,10 +29,6 @@ public class DashboardActivity extends AppCompatActivity {
                         .commit();
                 return true;
             case R.id.navigation_dashboard:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainer, new TestFragment())
-                        .addToBackStack(null)
-                        .commit();
                 return true;
             case R.id.navigation_notifications:
                 return true;
@@ -48,11 +38,22 @@ public class DashboardActivity extends AppCompatActivity {
         return false;
     };
 
+    @BindView(R.id.botom_nav)
+    BottomNavigationView bottomNavigationView;
+
+    @BindView(R.id.rv_dashboard_fitur)
+    RecyclerView recyclerView;
+
+    DashboardPresenter presenter;
+    FiturAdapter fiturAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+        initPresenter();
+        setRecyclerview();
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction()
@@ -61,4 +62,34 @@ public class DashboardActivity extends AppCompatActivity {
                 .commit();
     }
 
+    private void initPresenter() {
+        presenter = new DashboardPresenter(this);
+        presenter.setFitur(getApplicationContext().getResources().getStringArray(R.array.feature_item));
+    }
+
+    private void setRecyclerview() {
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setAdapter(fiturAdapter);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void showDataFitur(List<String> listFitur) {
+        fiturAdapter = new FiturAdapter(getApplicationContext(), listFitur);
+        fiturAdapter.notifyDataSetChanged();
+    }
 }

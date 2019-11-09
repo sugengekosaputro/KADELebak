@@ -2,23 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.inspektorat.kadelebak">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.kade_village.VillageActivity"></activity>
-        <activity android:name=".view.kade_support.SupportActivity" />
-        <activity android:name=".view.kade_profile.ProfileActivity" />
-        <activity android:name=".view.kade_complaint.ComplaintActivity" />
-        <activity
-            android:name=".view.kade_dashboard.DashboardActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+		<activity android:name=".view.kade_village.VillageActivity" android:label="@string/label_village"/>
+		<activity android:name=".view.kade_forum.ForumActivity" android:label="@string/label_forum" />
+		<activity android:name=".view.kade_support.SupportActivity" android:label="@string/label_support"/>
+		<activity android:name=".view.kade_profile.ProfileActivity" android:label="@string/label_profile"/>
+		<activity android:name=".view.kade_complaint.ComplaintActivity" android:label="@string/label_complaint"/>
+		<activity
+			android:name=".view.kade_dashboard.DashboardActivity"
+			android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

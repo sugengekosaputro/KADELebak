@@ -98,11 +98,11 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_dashboard_fitur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginSize16" />
         </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>
