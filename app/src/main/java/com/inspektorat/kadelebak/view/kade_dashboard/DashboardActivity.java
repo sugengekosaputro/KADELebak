@@ -1,19 +1,15 @@
 package com.inspektorat.kadelebak.view.kade_dashboard;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.view.kade_complaint.fragment.ComplaintFragment;
 import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
-import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
-import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
-import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
+import com.inspektorat.kadelebak.view.kade_profile.ProfileFragment;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,10 +25,18 @@ public class DashboardActivity extends AppCompatActivity {
                         .commit();
                 return true;
             case R.id.navigation_dashboard:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new ComplaintFragment())
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             case R.id.navigation_notifications:
                 return true;
             case R.id.navigation_profile:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new ProfileFragment())
+                        .addToBackStack(null)
+                        .commit();
                 return true;
         }
         return false;
