@@ -24,7 +24,7 @@
 				android:layout_height="80dp" />
 
 			<TextView
-				style="@style/TextThemeMain"
+				style="@style/TextViewMain"
 				android:id="@+id/tv_fitur_name"
 				tools:text="TEXT"
 				android:padding="@dimen/paddingSize16"/>

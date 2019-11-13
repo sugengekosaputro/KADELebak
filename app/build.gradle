@@ -45,5 +45,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.google.android.material:material:1.0.0'
 }
