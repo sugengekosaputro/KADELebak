@@ -6,13 +6,107 @@
 	android:layout_height="match_parent"
 	tools:context=".MainActivity">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Hello World!"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
 
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<TextView
+				style="@style/TextViewMain"
+				android:text="Text View Default" />
+
+			<TextView
+				style="@style/TextViewMain"
+				android:textSize="@dimen/textSize12"
+				android:textStyle="bold"
+				android:text="Text View Custom" />
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutDefault"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:hint="Edit Text Default">
+
+				<com.google.android.material.textfield.TextInputEditText style="@style/EditTextDefault" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutOutlined"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:hint="Edit Text Outlined">
+
+				<com.google.android.material.textfield.TextInputEditText style="@style/EditTextDefault" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutOutlined"
+				android:layout_width="300dp"
+				android:layout_height="40dp"
+				android:layout_marginTop="@dimen/marginSize24"
+				android:hint="Edit Text Custom Size">
+
+				<com.google.android.material.textfield.TextInputEditText
+					style="@style/EditTextDefault"
+					android:textSize="10sp" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutOutlined"
+				android:layout_marginTop="@dimen/marginSize8"
+				app:startIconDrawable="@android:drawable/ic_menu_search"
+				app:endIconMode="clear_text"
+				android:hint="Edit Text Icon">
+
+				<com.google.android.material.textfield.TextInputEditText style="@style/EditTextDefault" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.button.MaterialButton
+				style="@style/ButtonDefault"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:text="Button Default" />
+
+			<com.google.android.material.button.MaterialButton
+				style="@style/ButtonOutlined"
+				android:layout_marginTop="@dimen/marginSize8"
+				app:strokeColor="@color/blue1"
+				android:text="Button Outlined" />
+
+			<com.google.android.material.button.MaterialButton
+				style="@style/ButtonText"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:text="Button Text" />
+
+			<com.google.android.material.button.MaterialButton
+				style="@style/ButtonDefault"
+				app:icon="@drawable/ic_home_black_24dp"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:text="Button Icon" />
+
+			<com.google.android.material.card.MaterialCardView
+				android:layout_width="200dp"
+				android:layout_height="150dp"
+				android:layout_marginTop="@dimen/marginSize8"
+				app:cardElevation="8dp">
+
+				<TextView
+					style="@style/TextViewMain"
+					android:text="Cardview" />
+			</com.google.android.material.card.MaterialCardView>
+
+			<com.google.android.material.switchmaterial.SwitchMaterial
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Switch"
+				app:useMaterialThemeColors="false"/>
+
+
+		</LinearLayout>
+
+	</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,19 @@
 package com.inspektorat.kadelebak.view.kade_dashboard.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.inspektorat.kadelebak.MainActivity;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
 import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
@@ -21,6 +24,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +50,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         initPresenter();
         setRecyclerview();
         return view;
@@ -58,7 +62,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
     }
 
     private void setRecyclerview() {
-        recyclerView.setLayoutManager(new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(), 2));
         recyclerView.setAdapter(fiturAdapter);
     }
 
@@ -81,5 +85,11 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
     public void showDataFitur(List<String> listFitur) {
         fiturAdapter = new FiturAdapter(getActivity().getApplicationContext(), listFitur);
         fiturAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.iv_icon_notification)
+    void onClickIcon(){
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        getActivity().startActivity(intent);
     }
 }
