@@ -1,18 +1,17 @@
-package com.inspektorat.kadelebak.view.kade_dashboard.adapter;
+package com.inspektorat.kadelebak.view.kade_support.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.view.kade_forum.ForumActivity;
-import com.inspektorat.kadelebak.view.kade_village.VillageActivity;
+import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
 
 import java.util.List;
 
@@ -20,12 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> {
+public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
-    private Context context;
-    private List<String> listFitur;
+    Context context;
+    List<String> listFitur;
 
-    public FiturAdapter(Context context, List<String> listFitur) {
+    public SupportAdapter(Context context, List<String> listFitur) {
         this.context = context;
         this.listFitur = listFitur;
     }
@@ -33,7 +32,7 @@ public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_dashboard_fitur, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_support_fitur, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,7 +49,8 @@ public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_fitur_name)
+
+        @BindView(R.id.tv_support_name)
         TextView name;
 
         int position;
@@ -60,22 +60,16 @@ public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> 
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.cv_fitur)
+        /*@OnClick(R.id.cv_support)
         void onClick() {
             switch (position) {
                 case 0:
-                    Intent forumIntent = new Intent(itemView.getContext(), ForumActivity.class);
-                    forumIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    itemView.getContext().startActivity(forumIntent);
                     break;
                 case 1:
-                    Intent villageIntent = new Intent(itemView.getContext(), VillageActivity.class);
-                    villageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    itemView.getContext().startActivity(villageIntent);
                     break;
                 default:
                     break;
             }
-        }
+        }*/
     }
 }

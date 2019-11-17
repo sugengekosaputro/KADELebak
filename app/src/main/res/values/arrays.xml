@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string-array name="feature_item">
-		<item>Forum</item>
-		<item>Informasi Desa</item>
-	</string-array>
+    <string-array name="feature_item">
+        <item>Forum</item>
+        <item>Informasi Desa</item>
+    </string-array>
+
+    <string-array name="complaint_item">
+        <item>Bagian IT</item>
+        <item>Bagian Humas</item>
+        <item>Bagian Perpajakan</item>
+        <item>Bagian Sarana Prasarana</item>
+    </string-array>
+
+    <string-array name="support_item">
+        <item>Cara menggunakan aplikasi ini</item>
+        <item>Jaringan wifi kantor desa bermasalah</item>
+        <item>Bagaimana cara melaporkan kegiatan yang terindikasi bermasalah</item>
+        <item>Bantuan lainnya</item>
+    </string-array>
+
 </resources>

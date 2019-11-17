@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.kade_complaint.fragment.ComplaintFragment">
+    tools:context=".view.kade_support.fragment.SupportFragment">
 
     <include
         layout="@layout/toolbar_custom_item"
@@ -13,9 +12,9 @@
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_complaint_fitur"
+        android:id="@+id/rv_support_fitur"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/marginSize16" />
 
 </LinearLayout>
