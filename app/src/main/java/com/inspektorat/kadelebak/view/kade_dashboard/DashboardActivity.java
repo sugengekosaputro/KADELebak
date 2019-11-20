@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.view.kade_complaint.fragment.ComplaintFragment;
+import com.inspektorat.kadelebak.view.kade_complaint.ComplaintFragment;
 import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
 import com.inspektorat.kadelebak.view.kade_profile.ProfileFragment;
 import com.inspektorat.kadelebak.view.kade_support.fragment.SupportFragment;

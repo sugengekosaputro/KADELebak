@@ -5,7 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +22,11 @@ import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
+import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
+
+import java.util.List;
+import java.util.Objects;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
@@ -35,12 +43,12 @@ import butterknife.ButterKnife;
  */
 public class ComplaintFragment extends Fragment implements ComplaintView.Fitur {
 
-    @BindView(R.id.rv_complaint_fitur)
-    RecyclerView recyclerView;
-    @BindView(R.id.toolbar)
-    MaterialToolbar toolbar;
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
+//    @BindView(R.id.rv_complaint_fitur)
+//    RecyclerView recyclerView;
+//    @BindView(R.id.toolbar)
+//    MaterialToolbar toolbar;
+//    @BindView(R.id.toolbar_title)
+//    TextView toolbarTitle;
 
     ComplaintAdapter complaintAdapter;
     ComplaintPresenter presenter;
@@ -52,27 +60,29 @@ public class ComplaintFragment extends Fragment implements ComplaintView.Fitur {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
-        ButterKnife.bind(this, view);
-        initToolbar();
-        initPresenter();
-        setRecyclerview();
+        MaterialToolbar toolbar = view.findViewById(R.id.appbarlayout_complaint);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        initToolbar();
+//        initPresenter();
+//        setRecyclerview();
         return view;
     }
 
-    private void initToolbar() {
-        toolbarTitle.setText(getResources().getString(R.string.title_complaint));
-    }
-
-    private void initPresenter() {
-        presenter = new ComplaintPresenter(this);
-        presenter.setFitur(Objects.requireNonNull(getActivity()).getApplicationContext().getResources().getStringArray(R.array.complaint_item));
-    }
-
-    private void setRecyclerview() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext()));
-        recyclerView.setAdapter(complaintAdapter);
-    }
+//    private void initToolbar() {
+//        toolbarTitle.setText(getResources().getString(R.string.title_complaint));
+//    }
+//
+//    private void initPresenter() {
+//        presenter = new ComplaintPresenter(this);
+//        presenter.setFitur(Objects.requireNonNull(getActivity()).getApplicationContext().getResources().getStringArray(R.array.complaint_item));
+//    }
+//
+//    private void setRecyclerview() {
+//        recyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext()));
+//        recyclerView.setAdapter(complaintAdapter);
+//    }
 
     @Override
     public void showLoading() {
@@ -91,7 +101,7 @@ public class ComplaintFragment extends Fragment implements ComplaintView.Fitur {
 
     @Override
     public void showDataFitur(List<String> listFitur) {
-        complaintAdapter = new ComplaintAdapter(getActivity().getApplicationContext(), listFitur);
-        complaintAdapter.notifyDataSetChanged();
+     //   complaintAdapter = new ComplaintAdapter(getActivity().getApplicationContext(), listFitur);
+       // complaintAdapter.notifyDataSetChanged();
     }
 }
