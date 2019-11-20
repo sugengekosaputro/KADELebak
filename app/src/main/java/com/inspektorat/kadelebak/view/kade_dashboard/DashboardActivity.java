@@ -4,9 +4,10 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.view.kade_complaint.fragment.ComplaintFragment;
+import com.inspektorat.kadelebak.view.kade_complaint.ComplaintFragment;
 import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
 import com.inspektorat.kadelebak.view.kade_profile.ProfileFragment;
+import com.inspektorat.kadelebak.view.kade_support.SupportFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +32,10 @@ public class DashboardActivity extends AppCompatActivity {
                         .commit();
                 return true;
             case R.id.navigation_notifications:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, new SupportFragment())
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction()
