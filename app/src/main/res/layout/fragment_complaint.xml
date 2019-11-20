@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".view.kade_complaint.fragment.ComplaintFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id = "@+id/appbarlayout_complaint"
-            android:background = "@color/blue1"
-            android:layout_width = "match_parent"
-            android:layout_height = "?attr/actionBarSize"
-            app:layout_scrollFlags = "scroll|snap|enterAlways"
-            app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme = "@style/ThemeOverlay.AppCompat.Light" />
-    </com.google.android.material.appbar.AppBarLayout>
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content">
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id = "@+id/appbarlayout_complaint"
+			android:background = "@color/blue1"
+			android:layout_width = "match_parent"
+			android:layout_height = "?attr/actionBarSize"
+			app:layout_scrollFlags = "scroll|snap|enterAlways"
+			app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+			app:popupTheme = "@style/ThemeOverlay.AppCompat.Light" />
+	</com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        style="@style/TextViewMain"
-        android:text="ini complain layout"/>
+	<TextView
+		style="@style/TextViewMain"
+		android:text="ini complain layout"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_dashboard_fitur"
+        android:id="@+id/rv_complaint_fitur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginSize16" />
+        android:layout_margin="@dimen/marginSize16" />
 
 </LinearLayout>
