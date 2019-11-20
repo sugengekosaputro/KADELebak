@@ -22,11 +22,6 @@
 		style="@style/TextViewMain"
 		android:text="ini support layout"/>
 
-	<include
-		layout="@layout/toolbar_custom_item"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
-
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rv_support_fitur"
 		android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.inspektorat.kadelebak.view.kade_complaint.fragment;
+package com.inspektorat.kadelebak.view.kade_complaint;
 
 import android.os.Bundle;
 

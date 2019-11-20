@@ -24,11 +24,6 @@
 		style="@style/TextViewMain"
 		android:text="ini complain layout"/>
 
-    <include
-        layout="@layout/toolbar_custom_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_complaint_fitur"
         android:layout_width="match_parent"

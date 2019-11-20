@@ -14,11 +14,6 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/toolbar_custom_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <include
             layout="@layout/fragment_profile_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
