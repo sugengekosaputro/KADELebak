@@ -59,17 +59,5 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-        /*@OnClick(R.id.cv_support)
-        void onClick() {
-            switch (position) {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                default:
-                    break;
-            }
-        }*/
     }
 }

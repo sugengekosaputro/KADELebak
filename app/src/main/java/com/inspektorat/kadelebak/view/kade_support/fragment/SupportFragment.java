@@ -38,12 +38,10 @@ import butterknife.ButterKnife;
  */
 public class SupportFragment extends Fragment implements SupportVew.Fitur {
 
-//    @BindView(R.id.rv_support_fitur)
-//    RecyclerView recyclerView;
-//    @BindView(R.id.toolbar)
-//    MaterialToolbar toolbar;
-//    @BindView(R.id.toolbar_title)
-//    TextView toolbarTitle;
+    @BindView(R.id.appbarlayout_support)
+    MaterialToolbar toolbar;
+    @BindView(R.id.rv_support_fitur)
+    RecyclerView recyclerView;
 
     SupportAdapter supportAdapter;
     SupportPresenter presenter;
@@ -58,9 +56,8 @@ public class SupportFragment extends Fragment implements SupportVew.Fitur {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_support, container, false);
-//        ButterKnife.bind(this, view);
-        MaterialToolbar toolbar = view.findViewById(R.id.appbarlayout_support);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ButterKnife.bind(this, view);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         initPresenter();
         setRecyclerview();
         return view;
@@ -99,8 +96,8 @@ public class SupportFragment extends Fragment implements SupportVew.Fitur {
     }
 
     private void setRecyclerview() {
- //       recyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext()));
-  //      recyclerView.setAdapter(supportAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext()));
+        recyclerView.setAdapter(supportAdapter);
     }
 
     @Override

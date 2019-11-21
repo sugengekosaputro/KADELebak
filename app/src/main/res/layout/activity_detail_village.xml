@@ -4,12 +4,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:padding="@dimen/marginSize16"
-	tools:context=".view.kade_village.VillageActivity">
+	tools:context=".view.kade_village.view.DetailVillageActivity">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/rv_village"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
