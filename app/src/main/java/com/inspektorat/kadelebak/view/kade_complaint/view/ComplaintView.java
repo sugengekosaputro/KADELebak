@@ -10,4 +10,11 @@ public class ComplaintView {
         void showError(String message);
         void showDataFitur(List<String> listFitur);
     }
+
+    public interface CreateComplaint {
+        void showLoading();
+        void hideLoading();
+        void showError(String message);
+        void renderSpinner();
+    }
 }

@@ -11,7 +11,8 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_village.view.DetailVillageActivity"></activity>
+		<activity android:name=".view.kade_complaint.view.CreateComplaintActivity"></activity>
+		<activity android:name=".view.kade_village.view.DetailVillageActivity" />
 		<activity
 			android:name=".view.kade_village.VillageActivity"
 			android:label="@string/label_village" />

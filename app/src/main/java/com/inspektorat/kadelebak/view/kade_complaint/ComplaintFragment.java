@@ -1,5 +1,6 @@
 package com.inspektorat.kadelebak.view.kade_complaint;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.inspektorat.kadelebak.R;
@@ -30,6 +32,7 @@ import java.util.Objects;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
+import com.inspektorat.kadelebak.view.kade_complaint.view.CreateComplaintActivity;
 import com.inspektorat.kadelebak.view.kade_dashboard.DashboardActivity;
 
 import java.util.List;
@@ -64,9 +67,22 @@ public class ComplaintFragment extends Fragment implements ComplaintView.Fitur {
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
         MaterialToolbar toolbar = view.findViewById(R.id.appbarlayout_complaint);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Pengaduan");
 //        initToolbar();
 //        initPresenter();
 //        setRecyclerview();
+        setHasOptionsMenu(true);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_create:
+                        Intent intent = new Intent(getActivity(), CreateComplaintActivity.class);
+                        getActivity().startActivity(intent);
+                }
+                return true;
+            }
+        });
         return view;
     }
 
@@ -103,5 +119,11 @@ public class ComplaintFragment extends Fragment implements ComplaintView.Fitur {
     public void showDataFitur(List<String> listFitur) {
      //   complaintAdapter = new ComplaintAdapter(getActivity().getApplicationContext(), listFitur);
        // complaintAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_create, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
