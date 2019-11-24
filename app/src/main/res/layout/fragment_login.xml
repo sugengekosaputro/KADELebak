@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<com.google.android.material.textfield.TextInputLayout
+		style="@style/InputLayoutOutlined"
+		android:hint="Edit Text Outlined"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+		<com.google.android.material.textfield.TextInputEditText style="@style/EditTextDefault" />
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		style="@style/InputLayoutOutlined"
+		android:hint="Edit Text Outlined"
+		android:layout_marginTop="@dimen/marginSize8"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+		<com.google.android.material.textfield.TextInputEditText style="@style/EditTextDefault" />
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<TextView
+		style="@style/TextViewMain"
+		android:id="@+id/tv_forgot_password"
+		android:text="Lupa Password ?"
+		android:textColor="@color/blue2"
+		android:textStyle="bold"
+		android:layout_marginTop="@dimen/marginSize16"/>
+
+	<com.google.android.material.button.MaterialButton
+		style="@style/ButtonDefault"
+		android:id="@+id/btn_login"
+		android:layout_width="match_parent"
+		android:layout_marginTop="@dimen/marginSize16"
+		android:text="Masuk" />
+</LinearLayout>
