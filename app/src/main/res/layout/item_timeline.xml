@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_card_text_white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/marginSize16"
+        android:layout_marginRight="@dimen/marginSize16"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginSize10"
+            android:textColor="@color/blue1"
+            android:textSize="@dimen/textSize14"
+            android:textStyle="bold"
+            tools:text="Username" />
+
+        <TextView
+            android:id="@+id/theme_discusion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginSize8"
+            android:layout_marginBottom="@dimen/marginSize8"
+            android:textColor="@color/grey3"
+            android:textSize="@dimen/textSize16"
+            tools:text="Tema Diskusi" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginSize8"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/highSize15"
+                android:layout_height="@dimen/highSize15"
+                android:src="@drawable/ic_chat_bubble_outline_black_24dp" />
+
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/marginSize8"
+                android:layout_marginBottom="@dimen/marginSize10"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize12"
+                android:textStyle="bold"
+                tools:text="2 Jawaban" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/textSize16"
+        android:layout_marginRight="@dimen/marginSize16"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginSize10"
+            tools:text="23 November 2019" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -24,7 +24,9 @@
     <dimen name="imageSize32">32dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="highSize15">15dp</dimen>
     <dimen name="highSize200">200dp</dimen>
+    <dimen name="highSize250">250dp</dimen>
 
     <dimen name="elevate_card_text">5dp</dimen>
 </resources>

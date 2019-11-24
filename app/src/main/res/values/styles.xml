@@ -59,5 +59,12 @@
 
 	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+	<style name="TablayoutTextViewCustomStyle" parent="TextAppearance.Design.Tab">
+		<item name="textAllCaps">false</item>
+		<item name="android:textAllCaps">false</item>
+	</style>
+	<style name="MyCustomTablayout" parent="Widget.Design.TabLayout">
+		<item name="tabTextAppearance">@style/TablayoutTextViewCustomStyle</item>
+	</style>
 
 </resources>

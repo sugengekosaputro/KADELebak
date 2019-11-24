@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.inspektorat.kadelebak">
+    package="com.inspektorat.kadelebak">
 
-	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 	<application
 		android:allowBackup="true"
@@ -11,8 +11,9 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_complaint.view.CreateComplaintActivity"></activity>
-		<activity android:name=".view.kade_village.view.DetailVillageActivity" />
+        <activity android:name=".view.kade_forum.view.CreateForumActivity"></activity>
+        <activity android:name=".view.kade_complaint.view.CreateComplaintActivity" />
+        <activity android:name=".view.kade_village.view.DetailVillageActivity"></activity>
 		<activity
 			android:name=".view.kade_village.VillageActivity"
 			android:label="@string/label_village" />
