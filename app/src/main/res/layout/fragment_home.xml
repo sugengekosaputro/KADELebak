@@ -19,7 +19,7 @@
             android:id="@+id/ll_top_dashboard"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/blue1"
+            android:background="@drawable/drawable_background_home"
             android:orientation="horizontal"
             android:padding="@dimen/paddingSize16"
             android:weightSum="1">
