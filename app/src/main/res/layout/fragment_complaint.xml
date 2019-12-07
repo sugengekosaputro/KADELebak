@@ -20,14 +20,9 @@
 			app:popupTheme = "@style/ThemeOverlay.AppCompat.Light" />
 	</com.google.android.material.appbar.AppBarLayout>
 
-	<TextView
-		style="@style/TextViewMain"
-		android:text="ini complain layout"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_complaint_fitur"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginSize16" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

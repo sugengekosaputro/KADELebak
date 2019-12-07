@@ -6,16 +6,12 @@
 	android:layout_height="match_parent"
 	tools:context=".view.kade_splash.SplashActivity">
 
-	<TextView
-		style="@style/TextViewMain"
-		android:id="@+id/tv_splash"
-		android:layout_marginStart="8dp"
-		android:layout_marginLeft="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginRight="8dp"
-		android:text="SPLASH SCREEN"
-		android:textStyle="bold"
+	<ImageView
+		android:id="@+id/iv_splash"
+		android:layout_width="128dp"
+		android:layout_height="128dp"
+		android:layout_marginBottom="8dp"
+		android:src="@drawable/ic_logo_app_splash"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

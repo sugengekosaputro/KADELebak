@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".view.kade_complaint.view.ContentComplaintActivity">
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="@dimen/paddingSize16">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:weightSum="2">
+
+				<ImageView
+					android:layout_weight="0.2"
+					android:layout_width="@dimen/marginSize24"
+					android:layout_height="@dimen/marginSize24"
+					android:layout_gravity="center"
+					android:src="@drawable/ic_home_black_24dp"/>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:layout_weight="1.8">
+
+					<TextView
+						style="@style/TextViewMain"
+						android:text="Username User 1"/>
+					<TextView
+						style="@style/TextViewMain"
+						android:layout_marginTop="@dimen/marginSize8"
+						android:text="1 Jan 2019 | 17:00"
+						android:textSize="@dimen/textSize12"
+						android:textColor="@color/grey2"/>
+				</LinearLayout>
+
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_marginTop="@dimen/marginSize8">
+				<TextView
+					style="@style/TextViewMain"
+					android:text="@string/lorem_ipsum_text"
+					android:textSize="@dimen/textSize14"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginTop="@dimen/marginSize24">
+				<TextView
+					style="@style/TextViewMain"
+					android:text="3 Komentar"/>
+			</LinearLayout>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rv_forum_reply"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingBottom="@dimen/marginSize50"/>
+		</LinearLayout>
+	</ScrollView>
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/marginSize50"
+		style="@style/CardviewMain"
+		app:layout_constraintBottom_toBottomOf="parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:weightSum="2">
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutDefault"
+				android:hint="Tulis Pesan"
+				android:layout_weight="0.3">
+
+				<com.google.android.material.textfield.TextInputEditText
+					style="@style/EditTextDefault" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1.7"
+				android:background="@color/blue2"
+				android:gravity="center">
+
+				<ImageView
+					android:layout_width="@dimen/marginSize24"
+					android:layout_height="@dimen/marginSize24"
+					android:layout_gravity="center"
+					android:src="@drawable/ic_send_white_24dp"/>
+			</LinearLayout>
+		</LinearLayout>
+
+	</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

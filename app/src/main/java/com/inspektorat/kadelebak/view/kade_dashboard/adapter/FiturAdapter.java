@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,15 @@ public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> 
         String itemName = listFitur.get(position);
         holder.name.setText(itemName);
         holder.position = position;
+
+        switch (position) {
+            case 0:
+                holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_forum_blue_64dp));
+                break;
+            case 1:
+                holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_office_blue_24dp));
+                break;
+        }
     }
 
     @Override
@@ -52,6 +62,9 @@ public class FiturAdapter extends RecyclerView.Adapter<FiturAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_fitur_name)
         TextView name;
+
+        @BindView(R.id.iv_fitur_logo)
+        ImageView imageView;
 
         int position;
 

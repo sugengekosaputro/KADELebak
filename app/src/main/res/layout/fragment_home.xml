@@ -34,7 +34,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_home_black_24dp" />
+                    android:src="@drawable/ic_person_white_24dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_notifications_black_24dp"
+                    android:src="@drawable/ic_exit_to_app_white_24dp"
                     android:id="@+id/iv_icon_notification"/>
             </LinearLayout>
         </LinearLayout>
@@ -79,22 +79,6 @@
 
             <TextView
                 style="@style/TextViewMain"
-                android:text="@string/home_content_news"
-                android:textStyle="bold" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginSize16">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </HorizontalScrollView>
-
-            <TextView
-                style="@style/TextViewMain"
-                android:layout_marginTop="@dimen/marginSize24"
                 android:text="@string/home_content_feature"
                 android:textStyle="bold" />
 

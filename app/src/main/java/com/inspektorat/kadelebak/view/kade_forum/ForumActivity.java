@@ -16,6 +16,7 @@ import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_forum.adapter.ForumViewPagerAdapter;
 import com.inspektorat.kadelebak.view.kade_forum.fragment.MyForumFragment;
 import com.inspektorat.kadelebak.view.kade_forum.fragment.TimeLineFragment;
+import com.inspektorat.kadelebak.view.kade_forum.presenter.ForumPresenter;
 import com.inspektorat.kadelebak.view.kade_forum.view.CreateForumActivity;
 
 import butterknife.BindView;
@@ -44,34 +45,30 @@ public class ForumActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         handleViewPager();
-        handlePosition();
+        handlerTabListener();
     }
 
-    private void handlePosition() {
-        forumViewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void handlerTabListener() {
+        forumTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
                     case 0:
-                        if (firstViewTimeline) {
-                            timeLineFragment = new TimeLineFragment();
-                            firstViewTimeline = false;
-                        }
+                        timeLineFragment = new TimeLineFragment();
+                        break;
                     case 1:
-                        if (firstViewMyForum) {
-                            myForumFragment = new MyForumFragment();
-                            firstViewMyForum = false;
-                        }
+                        myForumFragment = new MyForumFragment();
+                        break;
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });

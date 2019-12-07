@@ -1,6 +1,7 @@
 package com.inspektorat.kadelebak.view.kade_forum.adapter;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_forum.fragment.MyForumFragment;
 import com.inspektorat.kadelebak.view.kade_forum.fragment.TimeLineFragment;
+import com.inspektorat.kadelebak.view.kade_forum.presenter.ForumPresenter;
 
 public class ForumViewPagerAdapter extends FragmentStatePagerAdapter {
 

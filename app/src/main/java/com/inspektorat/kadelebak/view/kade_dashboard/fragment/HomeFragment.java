@@ -1,6 +1,7 @@
 package com.inspektorat.kadelebak.view.kade_dashboard.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,17 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.inspektorat.kadelebak.MainActivity;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
 import com.inspektorat.kadelebak.view.kade_dashboard.presenter.DashboardPresenter;
 import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
+import com.inspektorat.kadelebak.view.kade_splash.SplashActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +46,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
 
     DashboardPresenter presenter;
     FiturAdapter fiturAdapter;
+    MyPreferencesData myPreferencesData;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,6 +59,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        myPreferencesData = MyPreferencesData.getInstance(getActivity());
         initPresenter();
         setRecyclerview();
         return view;
@@ -89,8 +97,20 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
     }
 
     @OnClick(R.id.iv_icon_notification)
-    void onClickIcon(){
-        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+    void onClickIcon() {
+        new MaterialAlertDialogBuilder(getActivity(),R.style.MyDialog)
+                .setTitle("KADE Lebak")
+                .setMessage("Anda yakin akan keluar ?")
+                .setPositiveButton("Keluar", (dialogInterface, i) -> this.logout())
+                .setNegativeButton("Batal", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setCancelable(false)
+                .show();
+    }
+
+    private void logout(){
+        myPreferencesData.clearData();
+        Intent intent = new Intent(getActivity().getApplicationContext(), SplashActivity.class);
         getActivity().startActivity(intent);
+        getActivity().finish();
     }
 }

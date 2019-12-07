@@ -3,15 +3,20 @@
 	package="com.inspektorat.kadelebak">
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
 	<application
 		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@mipmap/ic_logo_app_round"
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_login.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
+		<activity android:name=".view.kade_complaint.view.ContentComplaintActivity"></activity>
+		<activity android:name=".view.kade_forum.view.ContentForumActivity" />
+		<activity
+			android:name=".view.kade_login.LoginActivity"
+			android:theme="@style/AppTheme.NoActionBar" />
 		<activity
 			android:name=".view.kade_splash.SplashActivity"
 			android:theme="@style/AppTheme.NoActionBar">
