@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
 
 import java.util.Objects;
@@ -23,12 +24,12 @@ public class DetailVillageActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         Bundle object = intent.getExtras();
-        Institution institution = (Institution) object.getSerializable(Constant.SERIALIZABLE_VILLAGE);
+        InstitutionEntity institution = (InstitutionEntity) object.getSerializable(Constant.SERIALIZABLE_VILLAGE);
 
         setView(institution);
     }
 
-    private void setView(Institution institution) {
+    private void setView(InstitutionEntity institution) {
         Objects.requireNonNull(getSupportActionBar()).setTitle(institution.getName());
     }
 

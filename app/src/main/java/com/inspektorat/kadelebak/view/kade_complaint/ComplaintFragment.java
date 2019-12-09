@@ -1,5 +1,6 @@
 package com.inspektorat.kadelebak.view.kade_complaint;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
+import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
 import com.inspektorat.kadelebak.view.kade_complaint.view.CreateComplaintActivity;
@@ -29,6 +33,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,13 +42,20 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
 
     ComplaintAdapter complaintAdapter;
     ComplaintPresenter presenter;
+    Context context = getActivity();
+
+    MyPreferencesData myPreferencesData;
+
+    String employeeId;
+    String roleId;
+    String sectionId;
+    boolean stateMenu;
 
     @BindView(R.id.rv_complaint_fitur)
     RecyclerView recyclerview;
 
     public ComplaintFragment() {
         // Required empty public constructor
-        presenter = new ComplaintPresenter(this);
     }
 
     @Override
@@ -68,7 +80,14 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
             }
         });
 
-        presenter.initialize();
+        myPreferencesData = MyPreferencesData.getInstance(context);
+        employeeId = myPreferencesData.getData(Constant.EMPLOYEE_ID);
+        roleId = myPreferencesData.getData(Constant.ROLE_ID);
+        sectionId = myPreferencesData.getData(Constant.SECTION_ID);
+
+        presenter = new ComplaintPresenter(this, Integer.valueOf(employeeId), Integer.valueOf(roleId), sectionId);
+
+        presenter.getComplaintData();
         setRecyclerview();
 
         return view;
@@ -81,8 +100,13 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_create, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        if (sectionId.length() == 0) {
+            this.stateMenu = true;
+        }
+        if (this.stateMenu){
+            inflater.inflate(R.menu.menu_create, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
     }
 
     @Override
@@ -101,7 +125,25 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     }
 
     @Override
-    public void showDataComplain(List<User> users) {
-        complaintAdapter = new ComplaintAdapter(getActivity().getApplicationContext(),users);
+    public void hideIconCreate(boolean isVisible) {
+        this.stateMenu = isVisible;
+    }
+
+    @Override
+    public void showDataRoleUser(List<ComplaintModel> complaintModelList) {
+        Observable<ComplaintModel> observable = Observable.fromIterable(complaintModelList);
+        observable = observable.filter(complaintModel -> complaintModel.getPublisher().getEmployeeId() == Integer.valueOf(employeeId));
+        complaintAdapter = new ComplaintAdapter(getActivity(), observable.toList().blockingGet());
+        complaintAdapter.notifyDataSetChanged();
+        recyclerview.setAdapter(complaintAdapter);
+    }
+
+    @Override
+    public void showDataRoleOperator(List<ComplaintModel> complaintModelList) {
+        Observable<ComplaintModel> observable = Observable.fromIterable(complaintModelList);
+        observable = observable.filter(complaintModel -> complaintModel.getSectionId().getSectionId() == Integer.valueOf(sectionId));
+        complaintAdapter = new ComplaintAdapter(getActivity(), observable.toList().blockingGet());
+        complaintAdapter.notifyDataSetChanged();
+        recyclerview.setAdapter(complaintAdapter);
     }
 }

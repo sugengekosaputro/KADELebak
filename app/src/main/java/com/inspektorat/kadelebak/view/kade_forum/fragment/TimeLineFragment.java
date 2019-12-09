@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.view.kade_forum.adapter.ForumAdapter;
+import com.inspektorat.kadelebak.view.kade_forum.model.ForumModel;
 import com.inspektorat.kadelebak.view.kade_forum.presenter.ForumPresenter;
 import com.inspektorat.kadelebak.view.kade_forum.view.ForumView;
 
@@ -69,8 +71,9 @@ public class TimeLineFragment extends Fragment implements ForumView.View {
     }
 
     @Override
-    public void showDataVillage(List<User> userList) {
-        adapter = new ForumAdapter(getActivity().getApplicationContext(), userList);
+    public void showDataForum(List<ForumModel> forumModelList) {
+        adapter = new ForumAdapter(getActivity().getApplicationContext(), forumModelList);
         adapter.notifyDataSetChanged();
+        recyclerview.setAdapter(adapter);
     }
 }

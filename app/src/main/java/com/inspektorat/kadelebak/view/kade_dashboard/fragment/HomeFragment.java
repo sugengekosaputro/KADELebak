@@ -1,24 +1,20 @@
 package com.inspektorat.kadelebak.view.kade_dashboard.fragment;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.inspektorat.kadelebak.MainActivity;
+import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.view.kade_dashboard.adapter.FiturAdapter;
@@ -47,6 +43,8 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
     DashboardPresenter presenter;
     FiturAdapter fiturAdapter;
     MyPreferencesData myPreferencesData;
+    @BindView(R.id.tv_fragment_home_name)
+    TextView tvName;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,6 +58,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         myPreferencesData = MyPreferencesData.getInstance(getActivity());
+        tvName.setText(myPreferencesData.getData(Constant.NAME));
         initPresenter();
         setRecyclerview();
         return view;
@@ -98,7 +97,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
 
     @OnClick(R.id.iv_icon_notification)
     void onClickIcon() {
-        new MaterialAlertDialogBuilder(getActivity(),R.style.MyDialog)
+        new MaterialAlertDialogBuilder(getActivity(), R.style.MyDialog)
                 .setTitle("KADE Lebak")
                 .setMessage("Anda yakin akan keluar ?")
                 .setPositiveButton("Keluar", (dialogInterface, i) -> this.logout())
@@ -107,7 +106,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
                 .show();
     }
 
-    private void logout(){
+    private void logout() {
         myPreferencesData.clearData();
         Intent intent = new Intent(getActivity().getApplicationContext(), SplashActivity.class);
         getActivity().startActivity(intent);

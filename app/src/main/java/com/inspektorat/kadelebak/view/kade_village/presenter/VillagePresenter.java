@@ -1,5 +1,6 @@
 package com.inspektorat.kadelebak.view.kade_village.presenter;
 
+import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.networking.NetworkClient;
 import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
 import com.inspektorat.kadelebak.view.kade_village.service.VillageService;
@@ -27,15 +28,15 @@ public class VillagePresenter {
         VillageService service = NetworkClient.getRetrofit()
                 .create(VillageService.class);
 
-        Call<List<Institution>> call = service.getAllInstitution();
-        call.enqueue(new Callback<List<Institution>>() {
+        Call<List<InstitutionEntity>> call = service.getAllInstitution();
+        call.enqueue(new Callback<List<InstitutionEntity>>() {
             @Override
-            public void onResponse(Call<List<Institution>> call, Response<List<Institution>> response) {
+            public void onResponse(Call<List<InstitutionEntity>> call, Response<List<InstitutionEntity>> response) {
                 view.showDataVillage(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Institution>> call, Throwable t) {
+            public void onFailure(Call<List<InstitutionEntity>> call, Throwable t) {
                 view.showError("Koneksi Error");
             }
         });

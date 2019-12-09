@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.view.kade_support.adapter.SupportAdapter;
 import com.inspektorat.kadelebak.view.kade_village.adapter.VillageAdapter;
 import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
@@ -96,7 +97,7 @@ public class VillageActivity extends AppCompatActivity implements VillageView.Vi
     }
 
     @Override
-    public void showDataVillage(List<Institution> institutions) {
+    public void showDataVillage(List<InstitutionEntity> institutions) {
         adapter = new VillageAdapter(getApplicationContext(), institutions);
         recyclerview.setAdapter(adapter);
     }

@@ -31,6 +31,7 @@
 
 					<TextView
 						android:layout_weight="1"
+						android:id="@+id/tv_item_reply_forum_name"
 						style="@style/TextViewMain"
 						android:text="Username User 1" />
 				</LinearLayout>
@@ -44,6 +45,7 @@
 
 				<TextView
 					style="@style/TextViewMain"
+					android:id="@+id/tv_item_reply_forum_comment"
 					android:layout_marginTop="@dimen/marginSize8"
 					android:text="@string/lorem_ipsum_short"
 					android:textColor="@color/grey2"

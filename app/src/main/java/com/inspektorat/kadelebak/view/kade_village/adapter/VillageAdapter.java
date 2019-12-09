@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.view.kade_support.adapter.SupportAdapter;
 import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
 import com.inspektorat.kadelebak.view.kade_village.presenter.VillagePresenter;
@@ -34,12 +35,12 @@ import butterknife.OnClick;
 public class VillageAdapter extends RecyclerView.Adapter<VillageAdapter.ViewHolder> implements Filterable {
 
     private Context context;
-    private List<Institution> institutionList;
-    private List<Institution> institutionFilter;
+    private List<InstitutionEntity> institutionList;
+    private List<InstitutionEntity> institutionFilter;
     private VillageView.Detail detail;
     private VillagePresenter presenter;
 
-    public VillageAdapter(Context context, List<Institution> institutionList) {
+    public VillageAdapter(Context context, List<InstitutionEntity> institutionList) {
         this.context = context;
         this.institutionList = institutionList;
         this.institutionFilter = new ArrayList<>(institutionList);
@@ -54,7 +55,7 @@ public class VillageAdapter extends RecyclerView.Adapter<VillageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Institution institution = institutionList.get(position);
+        InstitutionEntity institution = institutionList.get(position);
         holder.position = position;
         holder.villageName.setText(institution.getName());
         holder.cardView.setOnClickListener(view -> {
@@ -84,14 +85,14 @@ public class VillageAdapter extends RecyclerView.Adapter<VillageAdapter.ViewHold
     private Filter filterList = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Institution> filterList = new ArrayList<>();
+            List<InstitutionEntity> filterList = new ArrayList<>();
 
             if (charSequence == null || charSequence.length() == 0) {
                 filterList.addAll(institutionFilter);
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for (Institution item : institutionFilter) {
+                for (InstitutionEntity item : institutionFilter) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
                         filterList.add(item);
                     }

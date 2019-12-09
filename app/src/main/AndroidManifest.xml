@@ -12,8 +12,10 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_complaint.view.ContentComplaintActivity"></activity>
-		<activity android:name=".view.kade_forum.view.ContentForumActivity" />
+		<activity android:name=".view.kade_complaint.view.ContentComplaintActivity"
+			android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+		<activity android:name=".view.kade_forum.view.ContentForumActivity"
+			android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 		<activity
 			android:name=".view.kade_login.LoginActivity"
 			android:theme="@style/AppTheme.NoActionBar" />

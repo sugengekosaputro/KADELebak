@@ -1,33 +1,61 @@
 package com.inspektorat.kadelebak.view.kade_forum.view;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
-import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.data.MyPreferencesData;
+import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_forum.adapter.ContentForumAdapter;
-import com.inspektorat.kadelebak.view.kade_village.adapter.VillageAdapter;
-import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
+import com.inspektorat.kadelebak.view.kade_forum.model.CommentList;
+import com.inspektorat.kadelebak.view.kade_forum.model.ForumModel;
+import com.inspektorat.kadelebak.view.kade_forum.presenter.ForumPresenter;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ContentForumActivity extends AppCompatActivity {
+public class ContentForumActivity extends AppCompatActivity implements ForumView.ContentForum {
 
     ContentForumAdapter adapter;
+    ForumPresenter presenter;
+    Context context = this;
 
-    @BindView(R.id.rv_forum_reply)
+    MyPreferencesData myPreferencesData = MyPreferencesData.getInstance(context);
+    int forumId;
+    String employeeId;
+
+    @BindView(R.id.rv_content_forum_reply)
     RecyclerView recyclerview;
+    @BindView(R.id.tv_content_forum_name)
+    TextView tvName;
+    @BindView(R.id.tv_content_forum_content)
+    TextView tvContent;
+    @BindView(R.id.tv_content_forum_counter)
+    TextView tvCommentar;
+
+    @BindView(R.id.ll_btn_send_reply_forum)
+    LinearLayout btnSendReply;
+    @BindView(R.id.edt_content_forum_reply)
+    TextInputLayout edtContent;
+    @BindView(R.id.sv_content_forum)
+    ScrollView svContentForum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +65,69 @@ public class ContentForumActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Konten Forum");
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        Bundle object = intent.getExtras();
-        List<User> user = (List<User>) object.getSerializable(Constant.SERIALIZABLE_FORUM);
-        setRecyclerview(user);
+        employeeId = myPreferencesData.getData(Constant.EMPLOYEE_ID);
+        forumId = getIntent().getIntExtra(Constant.FORUM_ID, 0);
+
+        presenter = new ForumPresenter(this, context);
+        presenter.getRetrofitById(forumId);
+
+        svContentForum.post(() -> svContentForum.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
-    private void setRecyclerview(List<User> user) {
+    private void setRecyclerview(List<CommentList> commentList) {
         LinearLayoutManager ll = new LinearLayoutManager(getApplicationContext());
         ll.setReverseLayout(true);
+        ll.setStackFromEnd(true);
         recyclerview.setLayoutManager(ll);
+        recyclerview.smoothScrollToPosition(commentList.size() - 1);
 
-        adapter = new ContentForumAdapter(getApplicationContext(), user);
+        Collections.reverse(commentList);
+        adapter = new ContentForumAdapter(getApplicationContext(), commentList);
+        adapter.notifyDataSetChanged();
         recyclerview.setAdapter(adapter);
+    }
+
+    @OnClick(R.id.ll_btn_send_reply_forum)
+    void sendReply() {
+        presenter.replyForum(this.forumId, edtContent.getEditText().getText().toString(), this.employeeId);
+        Util.hideSoftKeyboard(this);
+    }
+
+    @Override
+    public void onReplySuccess(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        edtContent.getEditText().getText().clear();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDataForum(ForumModel forumModel) {
+        tvName.setText(forumModel.getPublisher().getName());
+        tvContent.setText(forumModel.getContent());
+        tvCommentar.setText(String.valueOf(forumModel.getCommentList().size()));
+
+        setRecyclerview(forumModel.getCommentList());
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setErrorValidationEnabled(boolean enabled) {
+        edtContent.setErrorEnabled(enabled);
+    }
+
+    @Override
+    public void setErrorValidationMessage(String message) {
+        edtContent.setError(message);
+    }
+
+    @Override
+    public void
+    notifyForum() {
+        presenter.getRetrofitById(this.forumId);
     }
 
     @Override

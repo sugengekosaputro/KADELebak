@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.view.kade_forum.model.ForumModel;
 import com.inspektorat.kadelebak.view.kade_forum.view.ContentForumActivity;
 
 import java.io.Serializable;
@@ -25,11 +27,11 @@ import butterknife.ButterKnife;
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder> {
 
     private Context context;
-    private List<User> userList;
+    private List<ForumModel> forumModelList;
 
-    public ForumAdapter(Context context, List<User> userList) {
+    public ForumAdapter(Context context, List<ForumModel> forumModelList) {
         this.context = context;
-        this.userList = userList;
+        this.forumModelList = forumModelList;
     }
 
     @NonNull
@@ -41,15 +43,15 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = userList.get(position);
+        ForumModel forumModel = forumModelList.get(position);
+        holder.name.setText(forumModel.getPublisher().getName());
+        holder.content.setText(forumModel.getContent());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
                 Intent intent = new Intent(context, ContentForumActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                bundle.putSerializable(Constant.SERIALIZABLE_FORUM, (Serializable) userList);
-                intent.putExtras(bundle);
+                intent.putExtra(Constant.FORUM_ID, forumModel.getForumId());
                 context.startActivity(intent);
             }
         });
@@ -57,12 +59,19 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return (userList.size() > 0) ? userList.size() : 0;
+        return (forumModelList.size() > 0) ? forumModelList.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.cv_item_forum)
         CardView cardView;
+
+        @BindView(R.id.tv_item_forum_employee_name)
+        TextView name;
+
+        @BindView(R.id.tv_item_forum_employee_content)
+        TextView content;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

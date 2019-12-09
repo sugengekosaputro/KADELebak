@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.view.kade_forum.adapter.ForumAdapter;
+import com.inspektorat.kadelebak.view.kade_forum.model.ForumModel;
 import com.inspektorat.kadelebak.view.kade_forum.presenter.ForumPresenter;
 import com.inspektorat.kadelebak.view.kade_forum.view.ForumView;
 
@@ -33,6 +37,8 @@ public class MyForumFragment extends Fragment implements ForumView.View {
     @BindView(R.id.rv_my_forum)
     RecyclerView recyclerview;
 
+    MyPreferencesData myPreferencesData = MyPreferencesData.getInstance(getActivity());
+
     public MyForumFragment() {
         // Required empty public constructor
         presenter = new ForumPresenter(this);
@@ -51,7 +57,7 @@ public class MyForumFragment extends Fragment implements ForumView.View {
     }
 
     private void setRecyclerview() {
-        recyclerview.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerview.setAdapter(adapter);
     }
 
@@ -71,12 +77,13 @@ public class MyForumFragment extends Fragment implements ForumView.View {
     }
 
     @Override
-    public void showDataVillage(List<User> userList) {
-        Observable<User> observable = Observable.fromIterable(userList);
+    public void showDataForum(List<ForumModel> forumModelList) {
+        Observable<ForumModel> observable = Observable.fromIterable(forumModelList);
+        observable = observable.filter(forumModel ->
+                forumModel.getPublisher().getEmployeeId() == Integer.valueOf(myPreferencesData.getData(Constant.EMPLOYEE_ID)));
 
-        observable = observable.filter(user -> user.getAge() == 20);
-
-        adapter = new ForumAdapter(getActivity().getApplicationContext(), observable.toList().blockingGet());
+        adapter = new ForumAdapter(getActivity(), observable.toList().blockingGet());
         adapter.notifyDataSetChanged();
+        recyclerview.setAdapter(adapter);
     }
 }

@@ -38,11 +38,13 @@
 
 					<TextView
 						style="@style/TextViewMain"
-						android:text="Username User 1"/>
+						android:id="@+id/tv_content_complaint_name"
+						tools:text="Username User 1"/>
 					<TextView
 						style="@style/TextViewMain"
+						android:id="@+id/tv_content_complaint_date"
 						android:layout_marginTop="@dimen/marginSize8"
-						android:text="1 Jan 2019 | 17:00"
+						tools:text="1 Jan 2019 | 17:00"
 						android:textSize="@dimen/textSize12"
 						android:textColor="@color/grey2"/>
 				</LinearLayout>
@@ -55,7 +57,8 @@
 				android:layout_marginTop="@dimen/marginSize8">
 				<TextView
 					style="@style/TextViewMain"
-					android:text="@string/lorem_ipsum_text"
+					android:id="@+id/tv_content_complaint_content"
+					tools:text="@string/lorem_ipsum_text"
 					android:textSize="@dimen/textSize14"/>
 			</LinearLayout>
 
@@ -66,13 +69,15 @@
 				android:layout_marginTop="@dimen/marginSize24">
 				<TextView
 					style="@style/TextViewMain"
-					android:text="3 Komentar"/>
+					android:id="@+id/tv_content_complaint_counter"
+					tools:text="3 Komentar"/>
 			</LinearLayout>
 
 			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rv_forum_reply"
+				android:id="@+id/rv_content_complaint_reply"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:visibility="gone"
 				android:paddingBottom="@dimen/marginSize50"/>
 		</LinearLayout>
 	</ScrollView>
@@ -91,6 +96,7 @@
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
 				android:hint="Tulis Pesan"
+				android:id="@+id/edt_content_complaint_reply"
 				android:layout_weight="0.3">
 
 				<com.google.android.material.textfield.TextInputEditText
@@ -98,6 +104,7 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<LinearLayout
+				android:id="@+id/ll_btn_send_reply_complaint"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_weight="1.7"

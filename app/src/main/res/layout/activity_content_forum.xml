@@ -7,6 +7,7 @@
 	tools:context=".view.kade_forum.view.ContentForumActivity">
 
 	<ScrollView
+		android:id="@+id/sv_content_forum"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:layout_constraintTop_toTopOf="parent">
@@ -38,6 +39,7 @@
 
 					<TextView
 						style="@style/TextViewMain"
+						android:id="@+id/tv_content_forum_name"
 						android:text="Username User 1"/>
 					<TextView
 						style="@style/TextViewMain"
@@ -55,6 +57,7 @@
 				android:orientation="vertical">
 				<TextView
 					style="@style/TextViewMain"
+					android:id="@+id/tv_content_forum_content"
 					android:text="@string/lorem_ipsum_text"
 					android:textSize="@dimen/textSize14"/>
 			</LinearLayout>
@@ -66,11 +69,12 @@
 				android:layout_marginTop="@dimen/marginSize24">
 				<TextView
 					style="@style/TextViewMain"
+					android:id="@+id/tv_content_forum_counter"
 					android:text="3 Komentar"/>
 			</LinearLayout>
 
 			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rv_forum_reply"
+				android:id="@+id/rv_content_forum_reply"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:paddingBottom="@dimen/marginSize50"/>
@@ -90,6 +94,7 @@
 
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
+				android:id="@+id/edt_content_forum_reply"
 				android:hint="Tulis Pesan"
 				android:layout_weight="0.3">
 
@@ -102,7 +107,8 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1.7"
 				android:background="@color/blue2"
-				android:gravity="center">
+				android:gravity="center"
+				android:id="@+id/ll_btn_send_reply_forum">
 
 				<ImageView
 					android:layout_width="@dimen/marginSize24"

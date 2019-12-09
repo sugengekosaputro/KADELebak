@@ -37,6 +37,7 @@
 
 					<TextView
 						style="@style/TextViewMain"
+						android:id="@+id/tv_item_forum_employee_name"
 						android:text="Username User 1"/>
 					<TextView
 						style="@style/TextViewMain"
@@ -53,6 +54,7 @@
 				android:orientation="vertical">
 				<TextView
 					style="@style/TextViewMain"
+					android:id="@+id/tv_item_forum_employee_content"
 					android:text="@string/lorem_ipsum_text"
 					android:textSize="@dimen/textSize14"
 					android:padding="@dimen/marginSize8"/>

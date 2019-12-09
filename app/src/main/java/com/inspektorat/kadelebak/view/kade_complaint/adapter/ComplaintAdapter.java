@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ContentComplaintActivity;
 import com.inspektorat.kadelebak.view.kade_forum.view.ContentForumActivity;
 
@@ -28,11 +29,11 @@ import butterknife.OnClick;
 public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.ViewHolder> {
 
     Context context;
-    List<User> listFitur;
+    List<ComplaintModel> complaintModels;
 
-    public ComplaintAdapter(Context context, List<User> listFitur) {
+    public ComplaintAdapter(Context context, List<ComplaintModel> complaintModels) {
         this.context = context;
-        this.listFitur = listFitur;
+        this.complaintModels = complaintModels;
     }
 
     @NonNull
@@ -44,25 +45,40 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ComplaintModel complaintModel = complaintModels.get(position);
+
+        if (complaintModel.isAnonymous()) {
+            holder.name.setText(context.getResources().getString(R.string.anonymous));
+        } else {
+            holder.name.setText(complaintModel.getPublisher().getName());
+        }
+
+        holder.section.setText(complaintModel.getSectionId().getName());
+
         holder.layout.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             Intent intent = new Intent(context, ContentComplaintActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            bundle.putSerializable(Constant.SERIALIZABLE_COMPLAINT, (Serializable) listFitur);
-            intent.putExtras(bundle);
+            intent.putExtra(Constant.COMPLAINT_ID, complaintModel.getComplaintId());
+            intent.putExtra("isAnonymous", complaintModel.isAnonymous());
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return (listFitur.size() > 0) ? listFitur.size() : 0;
+        return (complaintModels.size() > 0) ? complaintModels.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.ll_item_complaint)
         LinearLayout layout;
+
+        @BindView(R.id.tv_complaint_name)
+        TextView name;
+
+        @BindView(R.id.tv_complaint_section)
+        TextView section;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -28,7 +28,9 @@
 	<string name="label_timeline">Forum Saya</string>
 	<string name="label_all">Semua</string>
 
-
+	<string name="anonymous">Anonymous</string>
+	<string name="x_comments">%1$d Komentar</string>
+	<string name="no_comments">Belum ada komentar</string>
 
 	<string name="home_content_news">Berita Terbaru</string>
 	<string name="home_content_feature">Fitur</string>

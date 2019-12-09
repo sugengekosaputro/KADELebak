@@ -50,7 +50,8 @@
 
                     <TextView
                         style="@style/TextViewMain"
-                        android:text="Sugeng Eko Saputro"
+                        android:id="@+id/tv_fragment_home_name"
+                        tools:text="Username"
                         android:textColor="@color/white"
                         android:textSize="@dimen/textSize20" />
 

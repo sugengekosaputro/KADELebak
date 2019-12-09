@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.view.kade_complaint.ComplaintFragment;
@@ -58,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        Toast.makeText(getApplicationContext(), "Hello : "+myPreferencesData.getData("id"),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Hello : "+myPreferencesData.getData(Constant.USER_ID),Toast.LENGTH_SHORT).show();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentContainer, new HomeFragment())

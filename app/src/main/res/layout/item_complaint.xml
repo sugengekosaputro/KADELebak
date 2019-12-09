@@ -39,9 +39,11 @@
 
 					<TextView
 						android:layout_weight="1"
+						android:id="@+id/tv_complaint_name"
 						style="@style/TextViewMain"
 						android:text="Username User 1" />
 					<TextView
+						android:id="@+id/tv_complaint_section"
 						android:layout_weight="1"
 						android:gravity="right"
 						style="@style/TextViewMain"

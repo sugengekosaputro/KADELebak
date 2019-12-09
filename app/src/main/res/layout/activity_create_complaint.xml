@@ -58,6 +58,7 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			style="@style/InputLayoutOutlined"
+			android:id="@+id/edt_content_create_complaint"
 			android:layout_marginTop="@dimen/marginSize16"
 			android:hint="Pesan">
 
@@ -67,6 +68,7 @@
 
 	<com.google.android.material.button.MaterialButton
 		style="@style/ButtonDefault"
+		android:id="@+id/btn_create_complaint_send"
 		android:layout_width="match_parent"
 		android:text="Kirim"
 		app:layout_constraintBottom_toBottomOf="parent"/>
