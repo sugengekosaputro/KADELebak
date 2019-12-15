@@ -3,9 +3,9 @@ package com.inspektorat.kadelebak.view.kade_forum.model;
 public class ForumCreateModel {
     private String content;
     private int employeeId;
-    private int notify;
+    private boolean notify;
 
-    public ForumCreateModel(String content, int employeeId, int notify) {
+    public ForumCreateModel(String content, int employeeId, boolean notify) {
         this.content = content;
         this.employeeId = employeeId;
         this.notify = notify;
@@ -27,11 +27,11 @@ public class ForumCreateModel {
         this.employeeId = employeeId;
     }
 
-    public int getNotify() {
+    public boolean isNotify() {
         return notify;
     }
 
-    public void setNotify(int notify) {
+    public void setNotify(boolean notify) {
         this.notify = notify;
     }
 }

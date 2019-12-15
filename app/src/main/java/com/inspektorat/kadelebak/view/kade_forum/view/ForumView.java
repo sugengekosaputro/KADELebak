@@ -24,9 +24,12 @@ public class ForumView {
     }
 
     public interface CreateForum {
+        void showLoading();
+        void hideLoading();
         void showError(String message);
         void setErrorValidationMessage(String message);
         void setErrorValidationEnabled(boolean enabled);
         void onCreateSuccess();
+        void onCreateFailed(String message);
     }
 }

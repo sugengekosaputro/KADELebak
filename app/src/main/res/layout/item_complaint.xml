@@ -22,7 +22,7 @@
 				android:layout_height="@dimen/marginSize24"
 				android:layout_gravity="center"
 				android:layout_weight="0.2"
-				android:src="@drawable/ic_home_black_24dp" />
+				android:src="@drawable/ic_person_24dp" />
 
 			<LinearLayout
 				android:layout_width="wrap_content"
@@ -57,8 +57,10 @@
 				<TextView
 					style="@style/TextViewMain"
 					android:layout_marginTop="@dimen/marginSize8"
+					android:id="@+id/tv_item_complaint_preview"
 					android:text="1 Jan 2019 | 17:00"
 					android:textColor="@color/grey2"
+					android:maxLength="100"
 					android:textSize="@dimen/textSize12" />
 
 				<View

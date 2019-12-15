@@ -6,8 +6,10 @@ import com.inspektorat.kadelebak.model.ListUser;
 import com.inspektorat.kadelebak.model.SuccessMessage;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.networking.NetworkClient;
+import com.inspektorat.kadelebak.view.kade_complaint.model.ComplaintCreateModel;
 import com.inspektorat.kadelebak.view.kade_forum.data.ForumCache;
 import com.inspektorat.kadelebak.view.kade_forum.data.ForumService;
+import com.inspektorat.kadelebak.view.kade_forum.model.ForumCreateModel;
 import com.inspektorat.kadelebak.view.kade_forum.model.ForumModel;
 import com.inspektorat.kadelebak.view.kade_forum.model.ForumReplyModel;
 import com.inspektorat.kadelebak.view.kade_forum.view.ForumView;
@@ -23,6 +25,7 @@ public class ForumPresenter {
 
     private ForumView.View view;
     private ForumView.ContentForum contentForumView;
+    private ForumView.CreateForum createForumView;
     private Context context;
 
 
@@ -33,6 +36,10 @@ public class ForumPresenter {
     public ForumPresenter(ForumView.ContentForum contentForumView, Context context) {
         this.contentForumView = contentForumView;
         this.context = context;
+    }
+
+    public ForumPresenter(ForumView.CreateForum createForumView) {
+        this.createForumView = createForumView;
     }
 
     public void initialize() {
@@ -96,6 +103,38 @@ public class ForumPresenter {
 
             @Override
             public void onFailure(Call<ForumModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void creteForum(int employeeId, String content, boolean notify) {
+        if (content.length() == 0) {
+            createForumView.setErrorValidationMessage("Tidak Boleh Kosong");
+            createForumView.setErrorValidationEnabled(true);
+        } else {
+            createForumView.setErrorValidationEnabled(false);
+            ForumCreateModel model = new ForumCreateModel(content, employeeId, notify);
+            createForum(model);
+        }
+    }
+
+    private void createForum(ForumCreateModel model) {
+        Call<SuccessMessage> call = initService().createForum(model);
+        call.enqueue(new Callback<SuccessMessage>() {
+            @Override
+            public void onResponse(Call<SuccessMessage> call, Response<SuccessMessage> response) {
+                if (response.isSuccessful()) {
+                    createForumView.hideLoading();
+                    createForumView.onCreateSuccess();
+                } else {
+                    createForumView.hideLoading();
+                    createForumView.onCreateFailed("GAGAL");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SuccessMessage> call, Throwable t) {
 
             }
         });

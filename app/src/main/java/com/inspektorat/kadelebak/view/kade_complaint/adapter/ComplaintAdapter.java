@@ -53,6 +53,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             holder.name.setText(complaintModel.getPublisher().getName());
         }
 
+        holder.preview.setText(complaintModel.getContent());
         holder.section.setText(complaintModel.getSectionId().getName());
 
         holder.layout.setOnClickListener(view -> {
@@ -76,6 +77,9 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
 
         @BindView(R.id.tv_complaint_name)
         TextView name;
+
+        @BindView(R.id.tv_item_complaint_preview)
+        TextView preview;
 
         @BindView(R.id.tv_complaint_section)
         TextView section;

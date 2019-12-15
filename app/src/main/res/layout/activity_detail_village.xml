@@ -12,11 +12,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/iv_village"
             android:layout_width="match_parent"
             android:layout_height="@dimen/highSize250"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/village_image" />
 
     </LinearLayout>
 
@@ -48,29 +48,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/marginSize10"
-                        android:text="@string/label_kepala_desa"
-                        android:textColor="@color/grey3"
-                        android:textSize="@dimen/textSize14"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/village_head"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="..."
-                        android:textColor="@color/grey3"
-                        android:textSize="@dimen/textSize12" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/marginSize10"
                         android:text="@string/label_address_office"
                         android:textColor="@color/grey3"
                         android:textSize="@dimen/textSize14"
@@ -88,7 +65,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/marginSize16">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -112,7 +90,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/marginSize16">
 
                     <TextView
                         android:layout_width="match_parent"

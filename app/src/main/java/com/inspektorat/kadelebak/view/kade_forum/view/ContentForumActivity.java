@@ -79,7 +79,6 @@ public class ContentForumActivity extends AppCompatActivity implements ForumView
         ll.setReverseLayout(true);
         ll.setStackFromEnd(true);
         recyclerview.setLayoutManager(ll);
-        recyclerview.smoothScrollToPosition(commentList.size() - 1);
 
         Collections.reverse(commentList);
         adapter = new ContentForumAdapter(getApplicationContext(), commentList);
@@ -102,9 +101,17 @@ public class ContentForumActivity extends AppCompatActivity implements ForumView
 
     @Override
     public void showDataForum(ForumModel forumModel) {
+        int size = forumModel.getCommentList().size();
+
         tvName.setText(forumModel.getPublisher().getName());
         tvContent.setText(forumModel.getContent());
         tvCommentar.setText(String.valueOf(forumModel.getCommentList().size()));
+
+        if (size > 0) {
+            tvCommentar.setText(context.getResources().getString(R.string.x_comments, size));
+        } else {
+            tvCommentar.setText(context.getResources().getString(R.string.no_comments));
+        }
 
         setRecyclerview(forumModel.getCommentList());
     }

@@ -23,6 +23,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
 import com.inspektorat.kadelebak.view.kade_dashboard.DashboardActivity;
+import com.inspektorat.kadelebak.view.kade_support.SupportModel;
 import com.inspektorat.kadelebak.view.kade_support.adapter.SupportAdapter;
 import com.inspektorat.kadelebak.view.kade_support.presenter.SupportPresenter;
 import com.inspektorat.kadelebak.view.kade_support.view.SupportVew;
@@ -92,7 +93,6 @@ public class SupportFragment extends Fragment implements SupportVew.Fitur {
 
     private void initPresenter() {
         presenter = new SupportPresenter(this);
-        presenter.setFitur(Objects.requireNonNull(getActivity()).getApplicationContext().getResources().getStringArray(R.array.support_item));
     }
 
     private void setRecyclerview() {
@@ -116,8 +116,8 @@ public class SupportFragment extends Fragment implements SupportVew.Fitur {
     }
 
     @Override
-    public void showDataFitur(List<String> listFitur) {
-        supportAdapter = new SupportAdapter(getActivity().getApplicationContext(), listFitur);
+    public void showData(List<SupportModel> supportModels) {
+        supportAdapter = new SupportAdapter(getActivity(), supportModels);
         supportAdapter.notifyDataSetChanged();
     }
 }

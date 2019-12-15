@@ -1,6 +1,7 @@
 package com.inspektorat.kadelebak.view.kade_support.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
+import com.inspektorat.kadelebak.view.kade_support.SupportContentActivity;
+import com.inspektorat.kadelebak.view.kade_support.SupportModel;
 
 import java.util.List;
 
@@ -22,11 +25,11 @@ import butterknife.OnClick;
 public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
     Context context;
-    List<String> listFitur;
+    private List<SupportModel> supportModels;
 
-    public SupportAdapter(Context context, List<String> listFitur) {
+    public SupportAdapter(Context context, List<SupportModel> supportModels) {
         this.context = context;
-        this.listFitur = listFitur;
+        this.supportModels = supportModels;
     }
 
     @NonNull
@@ -38,14 +41,24 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String itemName = listFitur.get(position);
-        holder.name.setText(itemName);
+        SupportModel model = this.supportModels.get(position);
+
+        holder.name.setText(model.getTitle());
         holder.position = position;
+
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, SupportContentActivity.class);
+                i.putExtra("webView", model);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return (listFitur.size() > 0) ? listFitur.size() : 0;
+        return (supportModels.size() > 0) ? supportModels.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

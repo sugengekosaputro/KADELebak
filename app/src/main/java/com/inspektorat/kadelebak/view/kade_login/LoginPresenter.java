@@ -9,8 +9,8 @@ import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.entity.UserAuthEntity;
 import com.inspektorat.kadelebak.model.BadRequest;
 import com.inspektorat.kadelebak.networking.NetworkClient;
-import com.inspektorat.kadelebak.view.kade_forum.model.Section;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
+import com.inspektorat.kadelebak.view.kade_profile.view.ProfileView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +20,8 @@ import retrofit2.Response;
 public class LoginPresenter extends BasePresenter {
 
     private LoginView view;
+    private ProfileView.view profileView;
+
     private Context context;
     private MyPreferencesData myPreferencesData;
 
@@ -67,21 +69,11 @@ public class LoginPresenter extends BasePresenter {
                     roleId = user.getEmployee().getRole().getRoleId();
                     name = user.getEmployee().getName();
 
-//                    if (String.valueOf(user.getEmployee().getSection()) != null) {
-//                        sectionId = String.valueOf(user.getEmployee().getSection().getSectionId());
-//                    }
-
                     if (user.getEmployee().getSection() == null){
                         sectionId = "";
                     } else {
                         sectionId = String.valueOf(user.getEmployee().getSection().getSectionId());
                     }
-
-//                    if (String.valueOf(user.getEmployee().getSection()) == null) {
-//                        sectionId = "";
-//                    } else if(String.valueOf(user.getEmployee().getSection()) != null){
-//                        sectionId = String.valueOf(user.getEmployee().getSection().getSectionId());
-//                    }
 
                     setSharedPreferences(
                             userId,
