@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Util {
 
     public static void animate(Activity activity) {
@@ -22,5 +25,11 @@ public class Util {
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static String getDateTimeNow() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return timeStamp;
     }
 }

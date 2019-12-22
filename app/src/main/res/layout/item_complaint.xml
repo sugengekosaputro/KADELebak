@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
@@ -18,16 +19,16 @@
 			android:weightSum="2">
 
 			<ImageView
-				android:layout_width="@dimen/marginSize24"
+				android:layout_width="72dp"
 				android:layout_height="@dimen/marginSize24"
 				android:layout_gravity="center"
-				android:layout_weight="0.2"
+				android:layout_weight="1"
 				android:src="@drawable/ic_person_24dp" />
 
 			<LinearLayout
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1.8"
+				android:layout_weight="1"
 				android:layout_marginTop="@dimen/marginSize8"
 				android:orientation="vertical">
 
@@ -47,21 +48,41 @@
 						android:layout_weight="1"
 						android:gravity="right"
 						style="@style/TextViewMain"
-						android:text="Bagian A"
+						tools:text="Bagian A"
 						android:textSize="@dimen/textSize12"
 						android:paddingRight="@dimen/paddingSize8"
 						android:textColor="@color/grey3"
 						android:textStyle="italic"/>
 				</LinearLayout>
 
-				<TextView
-					style="@style/TextViewMain"
-					android:layout_marginTop="@dimen/marginSize8"
-					android:id="@+id/tv_item_complaint_preview"
-					android:text="1 Jan 2019 | 17:00"
-					android:textColor="@color/grey2"
-					android:maxLength="100"
-					android:textSize="@dimen/textSize12" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:weightSum="2">
+
+					<TextView
+						style="@style/TextViewMain"
+						android:layout_width="match_parent"
+						android:layout_marginTop="@dimen/marginSize8"
+						android:id="@+id/tv_item_complaint_preview"
+						android:layout_weight="1.8"
+						tools:text="1 Jan 2019 | 17:00"
+						android:ellipsize="end"
+						android:maxLines="1"
+						android:textColor="@color/grey2"
+						android:textSize="@dimen/textSize12" />
+
+					<View
+						android:layout_width="12dp"
+						android:layout_height="12dp"
+						android:layout_gravity="center"
+						android:layout_weight="0.2"
+						android:id="@+id/view_item_indicator_complaint"
+						android:visibility="gone"
+						android:layout_marginRight="@dimen/marginSize8"
+						android:background="@drawable/background_circle"/>
+				</LinearLayout>
 
 				<View
 					android:layout_width="match_parent"

@@ -15,6 +15,11 @@ public class PositionEntity implements Serializable {
     private String name;
     private final static long serialVersionUID = -8949665805910321341L;
 
+    public PositionEntity(int positionId, String name) {
+        this.positionId = positionId;
+        this.name = name;
+    }
+
     public int getPositionId() {
         return positionId;
     }
@@ -29,5 +34,10 @@ public class PositionEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

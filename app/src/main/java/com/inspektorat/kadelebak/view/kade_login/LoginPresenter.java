@@ -2,15 +2,20 @@ package com.inspektorat.kadelebak.view.kade_login;
 
 import android.content.Context;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.data.BasePresenter;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
+import com.inspektorat.kadelebak.entity.InstitutionEntity;
+import com.inspektorat.kadelebak.entity.PositionEntity;
 import com.inspektorat.kadelebak.entity.UserAuthEntity;
 import com.inspektorat.kadelebak.model.BadRequest;
 import com.inspektorat.kadelebak.networking.NetworkClient;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
 import com.inspektorat.kadelebak.view.kade_profile.view.ProfileView;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,8 +24,8 @@ import retrofit2.Response;
 
 public class LoginPresenter extends BasePresenter {
 
-    private LoginView view;
-    private ProfileView.view profileView;
+    private LoginView.login view;
+    private LoginView.register register;
 
     private Context context;
     private MyPreferencesData myPreferencesData;
@@ -31,8 +36,13 @@ public class LoginPresenter extends BasePresenter {
     private String name;
     private String sectionId;
 
-    public LoginPresenter(LoginView view, Context context) {
+    public LoginPresenter(LoginView.login view, Context context) {
         this.view = view;
+        this.context = context;
+    }
+
+    public LoginPresenter(LoginView.register register, Context context){
+        this.register = register;
         this.context = context;
     }
 
@@ -54,10 +64,7 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void retrofitAuth(String email, String pass){
-        LoginService service = NetworkClient.getRetrofit()
-                .create(LoginService.class);
-
-        Call<UserAuthEntity> call = service.getDataUser(email, pass);
+        Call<UserAuthEntity> call = this.initService().getDataUser(email, pass);
         call.enqueue(new Callback<UserAuthEntity>() {
             @Override
             public void onResponse(Call<UserAuthEntity> call, Response<UserAuthEntity> response) {
@@ -112,5 +119,54 @@ public class LoginPresenter extends BasePresenter {
         myPreferencesData.saveData(Constant.ROLE_ID, String.valueOf(roleId));
         myPreferencesData.saveData(Constant.SECTION_ID, sec);
         myPreferencesData.saveData(Constant.NAME, name);
+    }
+
+    public void registerAccount(){
+        if (register.validateInput()){
+            register.removeError(false);
+            register.onRegisterSuccess();
+        }
+    }
+
+    public void getPosition(){
+        Call<List<PositionEntity>> call = this.initService().getDataPosition();
+        call.enqueue(new Callback<List<PositionEntity>>() {
+            @Override
+            public void onResponse(Call<List<PositionEntity>> call, Response<List<PositionEntity>> response) {
+                List<PositionEntity> pos = response.body();
+                if (response.isSuccessful() && pos.size() > 0) {
+                    register.renderPosition(pos);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PositionEntity>> call, Throwable t) {
+                Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getInstitution(){
+        Call<List<InstitutionEntity>> call = this.initService().getDataInstitution();
+        call.enqueue(new Callback<List<InstitutionEntity>>() {
+            @Override
+            public void onResponse(Call<List<InstitutionEntity>> call, Response<List<InstitutionEntity>> response) {
+                List<InstitutionEntity> ins = response.body();
+                if (response.isSuccessful() && ins.size() > 0) {
+                    register.renderInstitution(ins);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InstitutionEntity>> call, Throwable t) {
+                Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private LoginService initService(){
+        LoginService service = NetworkClient.getRetrofit()
+                .create(LoginService.class);
+        return service;
     }
 }

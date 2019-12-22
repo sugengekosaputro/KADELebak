@@ -62,11 +62,12 @@ public class ContentComplaintAdapter extends RecyclerView.Adapter<ContentComplai
         }
 
         if (publisher.equals(sender) && isAnonymous){
-            username = "anonym";
+            username = context.getResources().getString(R.string.anonymous);
         }
 
         holder.name.setText(username);
         holder.content.setText(commentList.getComment());
+        holder.time.setText(commentList.getDateTime());
     }
 
     @Override
@@ -81,6 +82,9 @@ public class ContentComplaintAdapter extends RecyclerView.Adapter<ContentComplai
 
         @BindView(R.id.tv_item_reply_forum_comment)
         TextView content;
+
+        @BindView(R.id.tv_item_reply_forum_time)
+        TextView time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

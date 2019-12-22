@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Constant {
 
-//    public static final String BASE_URL = "http://id-3.hostddns.us:5536/kedelebakapi/";
-    public static final String BASE_URL = "http://192.168.43.198:8080/kedelebakapi/";
+   public static final String BASE_URL = "http://id-3.hostddns.us:5536/kedelebakapi/";
+//    public static final String BASE_URL = "http://192.168.43.198:8080/kedelebakapi/";
 
     public static final String SHARED_PREFERENCES_NAME = "MY_SHARED_PREFERENCES_DATA";
 
@@ -21,4 +21,6 @@ public class Constant {
     public static final String SERIALIZABLE_VILLAGE = "SERIALIZABLE_VILLAGE";
     public static final String SERIALIZABLE_FORUM = "SERIALIZABLE_FORUM";
     public static final String SERIALIZABLE_COMPLAINT = "SERIALIZABLE_COMPLAINT";
+
+    public static final String FORM_ERROR = "Harus diisi";
 }

@@ -5,11 +5,13 @@ public class ComplaintReplyModel {
     private int complaintId;
     private String comment;
     private int employeeId;
+    private String dateTime;
 
-    public ComplaintReplyModel(int complaintId, String comment, int employeeId) {
+    public ComplaintReplyModel(int complaintId, String comment, int employeeId, String dateTime) {
         this.complaintId = complaintId;
         this.comment = comment;
         this.employeeId = employeeId;
+        this.dateTime = dateTime;
     }
 
     public int getComplaintId() {
@@ -34,5 +36,13 @@ public class ComplaintReplyModel {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

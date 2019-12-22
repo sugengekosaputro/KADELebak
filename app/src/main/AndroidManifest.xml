@@ -12,7 +12,10 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".view.kade_support.SupportContentActivity" android:label="Bantuan"></activity>
+		<activity android:name=".view.kade_login.RegisterActivity"></activity>
+		<activity
+			android:name=".view.kade_support.SupportContentActivity"
+			android:label="Bantuan" />
 		<activity
 			android:name=".view.kade_complaint.view.ContentComplaintActivity"
 			android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

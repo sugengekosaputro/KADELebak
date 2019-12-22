@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
+import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.CommentList;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ContentComplaintActivity;
 import com.inspektorat.kadelebak.view.kade_forum.view.ContentForumActivity;
@@ -30,6 +32,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
 
     Context context;
     List<ComplaintModel> complaintModels;
+    MyPreferencesData myPreferencesData;
+    int employeeId;
 
     public ComplaintAdapter(Context context, List<ComplaintModel> complaintModels) {
         this.context = context;
@@ -46,6 +50,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ComplaintModel complaintModel = complaintModels.get(position);
+        myPreferencesData = MyPreferencesData.getInstance(context);
+        employeeId = Integer.parseInt(myPreferencesData.getData(Constant.EMPLOYEE_ID));
 
         if (complaintModel.isAnonymous()) {
             holder.name.setText(context.getResources().getString(R.string.anonymous));
@@ -53,7 +59,20 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             holder.name.setText(complaintModel.getPublisher().getName());
         }
 
-        holder.preview.setText(complaintModel.getContent());
+        if (complaintModel.isNotify() || complaintModel.getPublisher().getEmployeeId() != employeeId) {
+            int colorBlue = context.getResources().getColor(R.color.blue1);
+            holder.indicator.setVisibility(View.VISIBLE);
+            holder.preview.setTextColor(colorBlue);
+            holder.name.setTextColor(colorBlue);
+            holder.section.setTextColor(colorBlue);
+        }
+
+        if (complaintModel.getCommentList().size() == 0){
+            holder.preview.setText(complaintModel.getContent());
+        } else {
+            CommentList comment = complaintModel.getCommentList().get(complaintModel.getCommentList().size() - 1);
+            holder.preview.setText(comment.getComment());
+        }
         holder.section.setText(complaintModel.getSectionId().getName());
 
         holder.layout.setOnClickListener(view -> {
@@ -83,6 +102,9 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
 
         @BindView(R.id.tv_complaint_section)
         TextView section;
+
+        @BindView(R.id.view_item_indicator_complaint)
+        View indicator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

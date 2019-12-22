@@ -19,6 +19,11 @@ public class SectionModel implements Serializable {
     private List<EmployeeList> employeeList = null;
     private final static long serialVersionUID = 3305570212775754250L;
 
+    public SectionModel(int sectionId, String name) {
+        this.sectionId = sectionId;
+        this.name = name;
+    }
+
     public int getSectionId() {
         return sectionId;
     }

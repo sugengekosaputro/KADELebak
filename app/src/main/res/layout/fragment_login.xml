@@ -47,4 +47,9 @@
 		android:layout_width="match_parent"
 		android:layout_marginTop="@dimen/marginSize16"
 		android:text="Masuk" />
+
+	<TextView
+		style="@style/TextViewMain"
+		android:text="register"
+		android:id="@+id/tv_register"/>
 </LinearLayout>

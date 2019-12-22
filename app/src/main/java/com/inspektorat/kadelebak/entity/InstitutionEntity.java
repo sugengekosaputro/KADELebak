@@ -30,6 +30,11 @@ public class InstitutionEntity implements Serializable {
     private RegionEntity region;
     private final static long serialVersionUID = -6206870477789576139L;
 
+    public InstitutionEntity(int institutionId, String name) {
+        this.institutionId = institutionId;
+        this.name = name;
+    }
+
     public int getInstitutionId() {
         return institutionId;
     }
@@ -84,5 +89,10 @@ public class InstitutionEntity implements Serializable {
 
     public void setRegion(RegionEntity region) {
         this.region = region;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -7,13 +7,15 @@ public class ComplaintCreateModel {
     private int sectionId;
     private boolean anonymous;
     private boolean notify;
+    private String dateTime;
 
-    public ComplaintCreateModel(String content, int employeeId, int sectionId, boolean anonymous, boolean notify) {
+    public ComplaintCreateModel(String content, int employeeId, int sectionId, boolean anonymous, boolean notify, String dateTime) {
         this.content = content;
         this.employeeId = employeeId;
         this.sectionId = sectionId;
         this.anonymous = anonymous;
         this.notify = notify;
+        this.dateTime = dateTime;
     }
 
     public String getContent() {
@@ -54,5 +56,13 @@ public class ComplaintCreateModel {
 
     public void setNotify(boolean notify) {
         this.notify = notify;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

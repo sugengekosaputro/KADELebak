@@ -4,11 +4,13 @@ public class ForumCreateModel {
     private String content;
     private int employeeId;
     private boolean notify;
+    private String dateTime;
 
-    public ForumCreateModel(String content, int employeeId, boolean notify) {
+    public ForumCreateModel(String content, int employeeId, boolean notify, String dateTime) {
         this.content = content;
         this.employeeId = employeeId;
         this.notify = notify;
+        this.dateTime = dateTime;
     }
 
     public String getContent() {
@@ -33,5 +35,13 @@ public class ForumCreateModel {
 
     public void setNotify(boolean notify) {
         this.notify = notify;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

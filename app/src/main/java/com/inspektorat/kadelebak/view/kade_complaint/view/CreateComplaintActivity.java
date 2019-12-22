@@ -1,10 +1,13 @@
 package com.inspektorat.kadelebak.view.kade_complaint.view;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -12,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -60,6 +65,7 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_complaint);
         ButterKnife.bind(this);
@@ -70,10 +76,6 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
         myPreferencesData = MyPreferencesData.getInstance(context);
         this.employeeId = myPreferencesData.getData(Constant.EMPLOYEE_ID);
-
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setContentView(R.layout.progress_dialog);
-        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         switchAnonymous.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -89,6 +91,8 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
+
+        this.initDialog();
     }
 
     @Override
@@ -104,12 +108,14 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
     @Override
     public void showLoading() {
-        progressDialog.show();
+//        progressDialog.show();
+        this.initDialog().show();
     }
 
     @Override
     public void hideLoading() {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
+        this.initDialog().dismiss();
     }
 
     @Override
@@ -141,16 +147,29 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
     @Override
     public void renderSpinner(List<SectionModel> sectionModelList) {
         ArrayAdapter<SectionModel> adapter = new ArrayAdapter<SectionModel>(this,
-                android.R.layout.simple_spinner_item, sectionModelList);
+                android.R.layout.simple_spinner_item, sectionModelList){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        SectionModel sm = new SectionModel(0, "Pilih Operator");
+        adapter.insert(sm,0);
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SectionModel sectionModel = (SectionModel) parent.getSelectedItem();
-                sectionId = sectionModel.getSectionId();
+                if (position > 0) {
+                    SectionModel sectionModel = (SectionModel) parent.getSelectedItem();
+                    sectionId = sectionModel.getSectionId();
+                }
             }
 
             @Override
@@ -167,7 +186,7 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
                 this.sectionId,
                 edtContent.getEditText().getText().toString(),
                 this.isAnonymous,
-                false);
+                true);
     }
 
     private void showToast(String message){
@@ -175,5 +194,14 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
                 context,
                 message,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    private Dialog initDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(R.layout.progress_dialog);
+
+        Dialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 }

@@ -4,11 +4,13 @@ public class ForumReplyModel {
     private int forumId;
     private String comment;
     private int employeeId;
+    private String dateTime;
 
-    public ForumReplyModel(int forumId, String comment, int employeeId) {
+    public ForumReplyModel(int forumId, String comment, int employeeId, String dateTime) {
         this.forumId = forumId;
         this.comment = comment;
         this.employeeId = employeeId;
+        this.dateTime = dateTime;
     }
 
     public int getForumId() {
@@ -33,5 +35,13 @@ public class ForumReplyModel {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

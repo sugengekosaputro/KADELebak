@@ -23,6 +23,9 @@ public class ComplaintModel implements Serializable {
     @SerializedName("dateTime")
     @Expose
     private String dateTime;
+    @SerializedName("dateTimeCreated")
+    @Expose
+    private String dateTimeCreated;
     @SerializedName("anonymous")
     @Expose
     private boolean anonymous;
@@ -72,6 +75,14 @@ public class ComplaintModel implements Serializable {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getDateTimeCreated() {
+        return dateTimeCreated;
+    }
+
+    public void setDateTimeCreated(String dateTimeCreated) {
+        this.dateTimeCreated = dateTimeCreated;
     }
 
     public boolean isAnonymous() {

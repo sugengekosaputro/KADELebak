@@ -142,7 +142,7 @@ public class ContentComplaintActivity extends AppCompatActivity implements Compl
         }
 
         tvContent.setText(complaintModel.getContent());
-        tvDate.setText(complaintModel.getDateTime());
+        tvDate.setText(complaintModel.getDateTimeCreated());
 
         if (size > 0) {
             tvCounter.setText(context.getResources().getString(R.string.x_comments, size));

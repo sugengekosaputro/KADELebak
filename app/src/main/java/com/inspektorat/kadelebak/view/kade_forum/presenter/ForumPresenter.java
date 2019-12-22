@@ -6,6 +6,7 @@ import com.inspektorat.kadelebak.model.ListUser;
 import com.inspektorat.kadelebak.model.SuccessMessage;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.networking.NetworkClient;
+import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_complaint.model.ComplaintCreateModel;
 import com.inspektorat.kadelebak.view.kade_forum.data.ForumCache;
 import com.inspektorat.kadelebak.view.kade_forum.data.ForumService;
@@ -53,7 +54,7 @@ public class ForumPresenter {
         } else {
             contentForumView.setErrorValidationEnabled(false);
 
-            ForumReplyModel model = new ForumReplyModel(forumId, content, Integer.valueOf(employeeId));
+            ForumReplyModel model = new ForumReplyModel(forumId, content, Integer.valueOf(employeeId), Util.getDateTimeNow());
             sendToReply(model);
         }
 
@@ -114,7 +115,7 @@ public class ForumPresenter {
             createForumView.setErrorValidationEnabled(true);
         } else {
             createForumView.setErrorValidationEnabled(false);
-            ForumCreateModel model = new ForumCreateModel(content, employeeId, notify);
+            ForumCreateModel model = new ForumCreateModel(content, employeeId, notify, Util.getDateTimeNow());
             createForum(model);
         }
     }

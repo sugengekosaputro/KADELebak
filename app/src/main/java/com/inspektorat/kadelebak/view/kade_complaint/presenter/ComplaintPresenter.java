@@ -6,6 +6,7 @@ import com.inspektorat.kadelebak.model.ListUser;
 import com.inspektorat.kadelebak.model.SuccessMessage;
 import com.inspektorat.kadelebak.model.User;
 import com.inspektorat.kadelebak.networking.NetworkClient;
+import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_complaint.ComplaintService;
 import com.inspektorat.kadelebak.view.kade_complaint.model.ComplaintCreateModel;
 import com.inspektorat.kadelebak.view.kade_complaint.model.SectionModel;
@@ -57,7 +58,7 @@ public class ComplaintPresenter {
         } else {
             viewContent.setErrorValidationEnabled(false);
 
-            ComplaintReplyModel model = new ComplaintReplyModel(complaintId, content, Integer.valueOf(employeeId));
+            ComplaintReplyModel model = new ComplaintReplyModel(complaintId, content, Integer.valueOf(employeeId), Util.getDateTimeNow());
             sendToReply(model);
         }
 
@@ -140,7 +141,7 @@ public class ComplaintPresenter {
             viewCreate.setErrorValidationEnabled(true);
         } else {
             viewCreate.setErrorValidationEnabled(false);
-            ComplaintCreateModel model = new ComplaintCreateModel(content, employeeId, sectionId, anonymous, notify);
+            ComplaintCreateModel model = new ComplaintCreateModel(content, employeeId, sectionId, anonymous, notify, Util.getDateTimeNow());
             saveComplaint(model);
             viewCreate.showLoading();
         }

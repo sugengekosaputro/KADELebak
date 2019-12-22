@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresente
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
 import com.inspektorat.kadelebak.view.kade_complaint.view.CreateComplaintActivity;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -131,19 +133,31 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
 
     @Override
     public void showDataRoleUser(List<ComplaintModel> complaintModelList) {
-        Observable<ComplaintModel> observable = Observable.fromIterable(complaintModelList);
-        observable = observable.filter(complaintModel -> complaintModel.getPublisher().getEmployeeId() == Integer.valueOf(employeeId));
-        complaintAdapter = new ComplaintAdapter(getActivity(), observable.toList().blockingGet());
+        List<ComplaintModel> complaintModels = Observable.fromIterable(complaintModelList)
+                .filter(complaintModel ->
+                                complaintModel.getPublisher().getEmployeeId() == Integer.valueOf(employeeId))
+                .toSortedList((t0, t1) -> t1.getDateTime().compareTo(t0.getDateTime())).blockingGet();
+        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
     }
 
     @Override
     public void showDataRoleOperator(List<ComplaintModel> complaintModelList) {
-        Observable<ComplaintModel> observable = Observable.fromIterable(complaintModelList);
-        observable = observable.filter(complaintModel -> complaintModel.getSectionId().getSectionId() == Integer.valueOf(sectionId));
-        complaintAdapter = new ComplaintAdapter(getActivity(), observable.toList().blockingGet());
+        List<ComplaintModel> complaintModels = Observable.fromIterable(complaintModelList)
+                .filter(complaintModel ->
+                        complaintModel.getSectionId().getSectionId() == Integer.valueOf(sectionId))
+                .toSortedList((t0, t1) ->
+                        t1.getDateTime().compareTo(t0.getDateTime())).blockingGet();
+
+        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getComplaintData();
     }
 }

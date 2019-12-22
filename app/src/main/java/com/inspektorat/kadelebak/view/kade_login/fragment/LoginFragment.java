@@ -18,13 +18,14 @@ import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_dashboard.DashboardActivity;
 import com.inspektorat.kadelebak.view.kade_login.LoginPresenter;
+import com.inspektorat.kadelebak.view.kade_login.RegisterActivity;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginFragment extends Fragment implements LoginView {
+public class LoginFragment extends Fragment implements LoginView.login {
 
     LoginPresenter presenter;
 
@@ -36,6 +37,8 @@ public class LoginFragment extends Fragment implements LoginView {
     TextInputLayout edtPassword;
     @BindView(R.id.edt_login_email)
     TextInputLayout edtEmail;
+    @BindView(R.id.tv_register)
+    TextView tvRegister;
 
 
     @Nullable
@@ -81,7 +84,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void onError(String msg) {
-        Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -89,6 +92,13 @@ public class LoginFragment extends Fragment implements LoginView {
         Intent intent = new Intent(getActivity(), DashboardActivity.class);
         getActivity().startActivity(intent);
         getActivity().finish();
+        Util.animate(getActivity());
+    }
+
+    @OnClick(R.id.tv_register)
+    void onClickRegister(){
+        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+        getActivity().startActivity(intent);
         Util.animate(getActivity());
     }
 }
