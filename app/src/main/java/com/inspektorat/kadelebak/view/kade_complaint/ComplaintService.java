@@ -11,6 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -31,4 +32,7 @@ public interface ComplaintService {
 
     @POST("complaint/reply")
     Call<SuccessMessage> sendReplyComplaint(@Body ComplaintReplyModel complaintReplyModel);
+
+    @DELETE("complaint/{id}")
+    Call<SuccessMessage> deleteComplaintById(@Path("id") int id);
 }

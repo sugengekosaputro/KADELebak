@@ -16,6 +16,8 @@ public class ComplaintView {
         void hideIconCreate(boolean isVisible);
         void showDataRoleUser(List<ComplaintModel> complaintModelList);
         void showDataRoleOperator(List<ComplaintModel> complaintModelList);
+        void onDeleteSuccess();
+        void onDeleteFailed();
     }
 
     public interface CreateComplaint {

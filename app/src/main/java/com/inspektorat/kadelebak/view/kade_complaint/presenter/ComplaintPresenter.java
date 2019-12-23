@@ -1,6 +1,7 @@
 package com.inspektorat.kadelebak.view.kade_complaint.presenter;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.inspektorat.kadelebak.model.ListUser;
 import com.inspektorat.kadelebak.model.SuccessMessage;
@@ -34,6 +35,10 @@ public class ComplaintPresenter {
     private int employeeId;
     private int roleId;
     private String sectionId;
+
+    public ComplaintPresenter(ComplaintView.View viewFitur){
+        this.viewFitur = viewFitur;
+    }
 
     public ComplaintPresenter(ComplaintView.View viewFitur, int employeeId, int roleId, String sectionId) {
         this.viewFitur = viewFitur;
@@ -165,6 +170,21 @@ public class ComplaintPresenter {
             @Override
             public void onFailure(Call<SuccessMessage> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void deleteComplaintById(int id) {
+        Call<SuccessMessage> call = this.initService().deleteComplaintById(id);
+        call.enqueue(new Callback<SuccessMessage>() {
+            @Override
+            public void onResponse(Call<SuccessMessage> call, Response<SuccessMessage> response) {
+                viewFitur.onDeleteSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<SuccessMessage> call, Throwable t) {
+                viewFitur.onDeleteFailed();
             }
         });
     }

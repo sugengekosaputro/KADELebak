@@ -11,7 +11,9 @@ import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.entity.PositionEntity;
 import com.inspektorat.kadelebak.entity.UserAuthEntity;
 import com.inspektorat.kadelebak.model.BadRequest;
+import com.inspektorat.kadelebak.model.SuccessMessage;
 import com.inspektorat.kadelebak.networking.NetworkClient;
+import com.inspektorat.kadelebak.view.kade_login.model.RegisterModel;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
 import com.inspektorat.kadelebak.view.kade_profile.view.ProfileView;
 
@@ -121,10 +123,10 @@ public class LoginPresenter extends BasePresenter {
         myPreferencesData.saveData(Constant.NAME, name);
     }
 
-    public void registerAccount(){
+    public void registerAccount(RegisterModel registerModel){
         if (register.validateInput()){
             register.removeError(false);
-            register.onRegisterSuccess();
+            this.submit(registerModel);
         }
     }
 
@@ -160,6 +162,21 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onFailure(Call<List<InstitutionEntity>> call, Throwable t) {
                 Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void submit(RegisterModel registerModel){
+        Call<SuccessMessage> call = this.initService().submitRegister(registerModel);
+        call.enqueue(new Callback<SuccessMessage>() {
+            @Override
+            public void onResponse(Call<SuccessMessage> call, Response<SuccessMessage> response) {
+                register.onRegisterSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<SuccessMessage> call, Throwable t) {
+                register.onRegisterFailed();
             }
         });
     }

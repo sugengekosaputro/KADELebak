@@ -43,6 +43,41 @@
 					android:inputType="text"/>
 			</com.google.android.material.textfield.TextInputLayout>
 
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:weightSum="2">
+
+				<com.google.android.material.textfield.TextInputLayout
+					style="@style/InputLayoutDefault"
+					android:layout_weight="1"
+					android:layout_marginTop="@dimen/marginSize8"
+					android:id="@+id/edt_register_prefix"
+					android:hint="Gelar Depan"
+					app:errorEnabled="true"
+					app:errorTextColor="@color/red">
+
+					<com.google.android.material.textfield.TextInputEditText
+						style="@style/EditTextDefault"
+						android:inputType="text"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+				<com.google.android.material.textfield.TextInputLayout
+					style="@style/InputLayoutDefault"
+					android:layout_weight="1"
+					android:layout_marginTop="@dimen/marginSize8"
+					android:id="@+id/edt_register_suffix"
+					android:hint="Gelar Belakang"
+					app:errorEnabled="true"
+					app:errorTextColor="@color/red">
+
+					<com.google.android.material.textfield.TextInputEditText
+						style="@style/EditTextDefault"
+						android:inputType="text"/>
+				</com.google.android.material.textfield.TextInputLayout>
+			</LinearLayout>
+
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
 				android:layout_marginTop="@dimen/marginSize8"
@@ -54,6 +89,78 @@
 				<com.google.android.material.textfield.TextInputEditText
 					style="@style/EditTextDefault" />
 			</com.google.android.material.textfield.TextInputLayout>
+
+			<RadioGroup
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/radio_group"
+				android:orientation="horizontal">
+
+				<RadioButton
+					android:id="@+id/radio_men"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Laki-laki" />
+
+				<RadioButton
+					android:id="@+id/radio_woman"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Perempuan" />
+			</RadioGroup>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginTop="@dimen/marginSize16"
+				android:layout_marginLeft="@dimen/marginSize8"
+				android:id="@+id/ll_dob_picker">
+
+				<TextView
+					style="@style/TextViewMain"
+					android:text="Tanggal Lahir"
+					android:layout_marginTop="@dimen/marginSize16" />
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/ic_date_range_24dp"
+					android:layout_gravity="bottom"
+					android:layout_marginLeft="@dimen/marginSize16"/>
+
+				<TextView
+					style="@style/TextViewMain"
+					android:id="@+id/tv_dob"
+					android:text="0000-00-00"
+					android:textColor="@color/grey1"
+					android:layout_gravity="bottom"
+					android:layout_marginLeft="@dimen/marginSize16"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/marginSize16"
+				android:orientation="horizontal"
+				android:layout_weight="2">
+				<Spinner
+					android:id="@+id/spn_register_institution"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scrollbars="vertical"
+					android:layout_marginTop="@dimen/marginSize8"
+					android:layout_marginRight="@dimen/marginSize8"
+					android:layout_weight="1"/>
+				<Spinner
+					android:id="@+id/spn_register_position"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scrollbars="vertical"
+					android:layout_marginTop="@dimen/marginSize8"
+					android:layout_marginLeft="@dimen/marginSize8"
+					android:layout_weight="1"/>
+			</LinearLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
@@ -80,74 +187,6 @@
 					style="@style/EditTextDefault"
 					android:inputType="textEmailAddress" />
 			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/edt_register_password"
-				style="@style/InputLayoutDefault"
-				android:hint="@string/label_password"
-				android:layout_marginTop="@dimen/marginSize8"
-				app:errorEnabled="true"
-				app:errorTextColor="@color/red">
-
-				<com.google.android.material.textfield.TextInputEditText
-					style="@style/EditTextDefault"
-					android:inputType="textPassword" />
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<RadioGroup
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/radio_group"
-				android:orientation="horizontal">
-
-				<RadioButton
-					android:id="@+id/radio_men"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Laki-laki" />
-
-				<RadioButton
-					android:id="@+id/radio_woman"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="Perempuan" />
-			</RadioGroup>
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/edt_register_dob"
-				style="@style/InputLayoutDefault"
-				android:layout_marginTop="@dimen/marginSize8"
-				android:hint="Tanggal Lahir"
-				app:errorEnabled="true"
-				app:errorTextColor="@color/red">
-
-				<com.google.android.material.textfield.TextInputEditText
-					style="@style/EditTextDefault"
-					android:id="@+id/edt_register_dob_val" />
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:layout_weight="2">
-				<Spinner
-					android:id="@+id/spn_register_institution"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:scrollbars="vertical"
-					android:layout_marginTop="@dimen/marginSize8"
-					android:layout_marginRight="@dimen/marginSize8"
-					android:layout_weight="1"/>
-				<Spinner
-					android:id="@+id/spn_register_position"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:scrollbars="vertical"
-					android:layout_marginTop="@dimen/marginSize8"
-					android:layout_marginLeft="@dimen/marginSize8"
-					android:layout_weight="1"/>
-			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>
 

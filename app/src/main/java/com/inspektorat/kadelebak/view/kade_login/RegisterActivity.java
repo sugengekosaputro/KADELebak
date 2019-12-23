@@ -2,32 +2,30 @@ package com.inspektorat.kadelebak.view.kade_login;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.entity.PositionEntity;
-import com.inspektorat.kadelebak.view.kade_complaint.model.SectionModel;
 import com.inspektorat.kadelebak.view.kade_login.model.RegisterModel;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
-import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
 
-import org.greenrobot.greendao.annotation.ToOne;
 import org.joda.time.LocalDateTime;
 
 import java.util.Collection;
@@ -41,8 +39,6 @@ import io.reactivex.Observable;
 
 public class RegisterActivity extends AppCompatActivity implements LoginView.register {
 
-    @BindView(R.id.edt_register_dob_val)
-    TextInputEditText edtRegisterDobVal;
     @BindView(R.id.edt_register_nip)
     TextInputLayout edtRegisterNip;
     @BindView(R.id.edt_register_name)
@@ -53,12 +49,18 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     TextInputLayout edtRegisterPhone;
     @BindView(R.id.edt_register_email)
     TextInputLayout edtRegisterEmail;
-    @BindView(R.id.edt_register_password)
-    TextInputLayout edtRegisterPassword;
     @BindView(R.id.spn_register_position)
     Spinner spnPosition;
     @BindView(R.id.spn_register_institution)
     Spinner spnInstitution;
+    @BindView(R.id.tv_dob)
+    TextView tvDob;
+    @BindView(R.id.ll_dob_picker)
+    LinearLayout llDobPicker;
+    @BindView(R.id.edt_register_prefix)
+    TextInputLayout edtRegisterPrefix;
+    @BindView(R.id.edt_register_suffix)
+    TextInputLayout edtRegisterSuffix;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     RadioButton radioButton;
@@ -66,8 +68,6 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     RadioGroup radioGroup;
     @BindView(R.id.btn_register)
     MaterialButton btnRegister;
-//    @BindView(R.id.edt_register_dob)
-//    TextInputLayout edtDob;
 
     private LoginPresenter presenter;
     private RegisterModel registerModel;
@@ -86,16 +86,41 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
 
         this.initSpinner();
         this.setDateListener();
+
+//        radioGroup = findViewById(R.id.radio_group);
+//
+//        radioGroup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+//                gender = radioButton.getText().toString();
+//                Toast.makeText(getApplicationContext(), gender , Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        radioGroup.clearCheck();
+        radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                case R.id.radio_men:
+                    gender = "Laki-laki";
+                    break;
+                case R.id.radio_woman:
+                    gender = "Perempuan";
+                    break;
+                default:
+                    gender = "Laki-laki";
+            }
+        });
     }
 
     private void setDateListener() {
         DatePickerDialog.OnDateSetListener date = (datePicker, i, i1, i2) -> {
-            localDTStart = localDTStart.withDate(i, i1+1, i2);
+            localDTStart = localDTStart.withDate(i, i1 + 1, i2);
             String result = localDTStart.toString("YYYY-MM-dd");
-            edtRegisterDobVal.setText(result);
+            tvDob.setText(result);
         };
 
-        edtRegisterDobVal.setOnClickListener(view ->
+        llDobPicker.setOnClickListener(view ->
                 new DatePickerDialog(RegisterActivity.this, date,
                         localDTStart.getYear(),
                         localDTStart.getMonthOfYear(),
@@ -114,28 +139,43 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         }
     }
 
-    @OnClick(R.id.edt_register_dob_val)
-    void onClickDob(){
-        Toast.makeText(getApplicationContext(), "DOB Clicked", Toast.LENGTH_SHORT).show();
-    }
-
     @OnClick(R.id.btn_register)
     void onClickRegister() {
-        this.presenter.registerAccount();
-        this.generateForm(
+        registerModel = this.generateForm(
                 edtRegisterNip,
                 edtRegisterName,
+                edtRegisterPrefix,
+                edtRegisterSuffix,
+                tvDob,
                 edtRegisterBornPlace,
-                gender,
+                this.gender,
                 edtRegisterPhone,
                 edtRegisterEmail,
                 institutionId,
                 positionId);
+
+        this.presenter.registerAccount(registerModel);
+
+//        Log.d("Geng", "onClickRegister: "
+//                +model.getNip()+", "
+//                +model.getName()+", "
+//                +model.getBornPlace()+", "
+//                +model.getDob()+", "
+//                +model.getGender()+", "
+//                +model.getPhone()+", "
+//                +model.getPositionId()+", "
+//                +model.getSectionId()+", "
+//                +model.getPrefixTitle()+", "
+//                +model.getSuffixTitle()+", "
+//        );
     }
 
     private RegisterModel generateForm(
             TextInputLayout nip,
             TextInputLayout name,
+            TextInputLayout prefix,
+            TextInputLayout suffix,
+            TextView dob,
             TextInputLayout bornPlace,
             String gender,
             TextInputLayout phone,
@@ -145,9 +185,9 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         RegisterModel model = new RegisterModel();
         model.setNip(nip.getEditText().getText().toString());
         model.setName(name.getEditText().getText().toString());
-  //      model.setPrefixTitle();
-   //     model.setSuffixTitle();
-//        model.setDob();
+        model.setPrefixTitle(prefix.getEditText().getText().toString());
+        model.setSuffixTitle(suffix.getEditText().getText().toString());
+        model.setDob(dob.getText().toString());
         model.setBornPlace(bornPlace.getEditText().getText().toString());
         model.setGender(gender);
         model.setPhone(phone.getEditText().getText().toString());
@@ -156,7 +196,6 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         model.setInstitutionId(institutionId);
         model.setRoleId("4");
         model.setSectionId(null);
-
         return model;
     }
 
@@ -195,10 +234,17 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         }
 
         if (!isRadioChecked(selectedId)) {
-            radioButton = findViewById(R.id.radio_woman);
-            radioGroup.requestFocus();
-            radioGroup.requestFocusFromTouch();
-            radioButton.setError("harus dipilih");
+            Toast.makeText(getApplicationContext(), "Pilih Gender Dulu", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (positionId == null) {
+            Toast.makeText(getApplicationContext(), "Pilih Posisi Dulu", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (institutionId == null) {
+            Toast.makeText(getApplicationContext(), "Pilih Institusi Dulu", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -214,9 +260,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         if (selectedId == -1) {
             return false;
         } else {
-//            radioButton = findViewById(selectedId);
             return true;
-//            Toast.makeText(getApplicationContext(), "Choose : " + radioButton.getText().toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -232,7 +276,6 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         edtRegisterBornPlace.setErrorEnabled(status);
         edtRegisterPhone.setErrorEnabled(status);
         edtRegisterEmail.setErrorEnabled(status);
-        radioButton.setError(null);
     }
 
     @Override
@@ -242,7 +285,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
                 .blockingGet();
 
         ArrayAdapter<PositionEntity> adapter = new ArrayAdapter<PositionEntity>(this,
-                android.R.layout.simple_spinner_item, position){
+                android.R.layout.simple_spinner_item, position) {
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -259,7 +302,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
                 if (position > 0) {
                     PositionEntity positionEntity = (PositionEntity) adapterView.getSelectedItem();
                     positionId = String.valueOf(positionEntity.getPositionId());
-                    Toast.makeText(getApplicationContext(),"Posisi : "+ positionId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Posisi : " + positionId, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -278,7 +321,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
                 .blockingGet();
 
         ArrayAdapter<InstitutionEntity> adapter = new ArrayAdapter<InstitutionEntity>(this,
-                android.R.layout.simple_spinner_item, institution){
+                android.R.layout.simple_spinner_item, institution) {
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -295,7 +338,8 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 if (position > 0) {
                     InstitutionEntity institutionEntity = (InstitutionEntity) adapterView.getSelectedItem();
-                    Toast.makeText(getApplicationContext(),"Institusi : "+institutionEntity, Toast.LENGTH_SHORT).show();
+                    institutionId = String.valueOf(institutionEntity.getInstitutionId());
+                    Toast.makeText(getApplicationContext(), "Institusi : " + institutionEntity, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -308,11 +352,11 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
 
     @Override
     public void onRegisterSuccess() {
-        Toast.makeText(getApplicationContext(), "register OK", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Register Berhasil, Password Anda 12345", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRegisterFailed() {
-
+        Toast.makeText(getApplicationContext(), "Register Gagal", Toast.LENGTH_SHORT).show();
     }
 }

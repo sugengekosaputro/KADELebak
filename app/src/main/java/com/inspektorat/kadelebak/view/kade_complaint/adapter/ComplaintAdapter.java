@@ -8,16 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.view.kade_complaint.ComplaintService;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.CommentList;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
+import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
+import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ContentComplaintActivity;
 import com.inspektorat.kadelebak.view.kade_forum.view.ContentForumActivity;
 
@@ -33,11 +38,16 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
     Context context;
     List<ComplaintModel> complaintModels;
     MyPreferencesData myPreferencesData;
+    ComplaintView.View view;
+    ComplaintPresenter presenter;
     int employeeId;
+    boolean canDelete;
 
-    public ComplaintAdapter(Context context, List<ComplaintModel> complaintModels) {
+    public ComplaintAdapter(Context context, List<ComplaintModel> complaintModels, boolean canDelete, ComplaintView.View view) {
         this.context = context;
         this.complaintModels = complaintModels;
+        this.canDelete = canDelete;
+        this.view = view;
     }
 
     @NonNull
@@ -52,6 +62,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
         ComplaintModel complaintModel = complaintModels.get(position);
         myPreferencesData = MyPreferencesData.getInstance(context);
         employeeId = Integer.parseInt(myPreferencesData.getData(Constant.EMPLOYEE_ID));
+        String complaintId = String.valueOf(complaintModel.getComplaintId());
 
         if (complaintModel.isAnonymous()) {
             holder.name.setText(context.getResources().getString(R.string.anonymous));
@@ -59,13 +70,13 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             holder.name.setText(complaintModel.getPublisher().getName());
         }
 
-        if (complaintModel.isNotify() || complaintModel.getPublisher().getEmployeeId() != employeeId) {
-            int colorBlue = context.getResources().getColor(R.color.blue1);
-            holder.indicator.setVisibility(View.VISIBLE);
-            holder.preview.setTextColor(colorBlue);
-            holder.name.setTextColor(colorBlue);
-            holder.section.setTextColor(colorBlue);
-        }
+//        if (complaintModel.isNotify() || complaintModel.getPublisher().getEmployeeId() != employeeId) {
+//            int colorBlue = context.getResources().getColor(R.color.blue1);
+//            holder.indicator.setVisibility(View.VISIBLE);
+//            holder.preview.setTextColor(colorBlue);
+//            holder.name.setTextColor(colorBlue);
+//            holder.section.setTextColor(colorBlue);
+//        }
 
         if (complaintModel.getCommentList().size() == 0){
             holder.preview.setText(complaintModel.getContent());
@@ -82,6 +93,23 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             intent.putExtra("isAnonymous", complaintModel.isAnonymous());
             context.startActivity(intent);
         });
+
+        if (canDelete) {
+            holder.layout.setOnLongClickListener(view -> {
+                new MaterialAlertDialogBuilder(context, R.style.MyDialog)
+                        .setTitle("Peringatan")
+                        .setMessage("Anda yakin akan menghapus pengaduan ini ?")
+                        .setPositiveButton("Ya", (dialogInterface, i) -> {
+                            int id = Integer.parseInt(complaintId);
+                            presenter = new ComplaintPresenter(this.view);
+                            presenter.deleteComplaintById(id);
+                        })
+                        .setNegativeButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
+                        .setCancelable(false)
+                        .show();
+                return true;
+            });
+        }
     }
 
     @Override

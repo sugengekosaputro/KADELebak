@@ -137,7 +137,7 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
                 .filter(complaintModel ->
                                 complaintModel.getPublisher().getEmployeeId() == Integer.valueOf(employeeId))
                 .toSortedList((t0, t1) -> t1.getDateTime().compareTo(t0.getDateTime())).blockingGet();
-        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels);
+        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels, false, this);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
     }
@@ -150,7 +150,7 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
                 .toSortedList((t0, t1) ->
                         t1.getDateTime().compareTo(t0.getDateTime())).blockingGet();
 
-        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels);
+        complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels, true, this);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
     }
@@ -159,5 +159,16 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     public void onResume() {
         super.onResume();
         presenter.getComplaintData();
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+        onResume();
+        Toast.makeText(getActivity(), "Data Terhapus", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDeleteFailed() {
+        Toast.makeText(getActivity(), "Gagal", Toast.LENGTH_SHORT).show();
     }
 }
