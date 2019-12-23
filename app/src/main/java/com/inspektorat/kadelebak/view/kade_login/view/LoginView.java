@@ -20,6 +20,8 @@ public class LoginView {
 
     public interface register {
         boolean validateInput();
+        void showLoading();
+        void hideLoading();
         void removeError(boolean status);
         void renderPosition(Collection<PositionEntity> positionList);
         void renderInstitution(Collection<InstitutionEntity> institutionList);

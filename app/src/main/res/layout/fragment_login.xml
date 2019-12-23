@@ -36,6 +36,7 @@
 		style="@style/TextViewMain"
 		android:id="@+id/tv_forgot_password"
 		android:text="Lupa Password ?"
+		android:visibility="gone"
 		android:textColor="@color/blue2"
 		android:textStyle="bold"
 		android:textSize="@dimen/textSize14"
@@ -50,6 +51,10 @@
 
 	<TextView
 		style="@style/TextViewMain"
-		android:text="register"
+		android:text="Register"
+		android:textColor="@color/blue1"
+		android:textStyle="bold"
+		android:textSize="@dimen/textSize14"
+		android:layout_marginTop="@dimen/marginSize16"
 		android:id="@+id/tv_register"/>
 </LinearLayout>

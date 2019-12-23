@@ -132,7 +132,6 @@
 				<TextView
 					style="@style/TextViewMain"
 					android:id="@+id/tv_dob"
-					android:text="0000-00-00"
 					android:textColor="@color/grey1"
 					android:layout_gravity="bottom"
 					android:layout_marginLeft="@dimen/marginSize16"/>

@@ -29,6 +29,7 @@ public class ComplaintView {
         void onCreateSuccess(String message);
         void onCreateFailed(String message);
         void renderSpinner(List<SectionModel> sectionModelList);
+        boolean validateInput();
     }
 
     public interface ContentComplaint {

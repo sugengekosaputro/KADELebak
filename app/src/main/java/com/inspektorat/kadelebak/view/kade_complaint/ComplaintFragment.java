@@ -1,5 +1,6 @@
 package com.inspektorat.kadelebak.view.kade_complaint;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -28,6 +30,8 @@ import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintMo
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
 import com.inspektorat.kadelebak.view.kade_complaint.view.CreateComplaintActivity;
+
+import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.Comparator;
 import java.util.List;
@@ -91,7 +95,6 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
 
         presenter.getComplaintData();
         setRecyclerview();
-
         return view;
     }
 
@@ -113,7 +116,7 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
 
     @Override
     public void showLoading() {
-
+        Toast.makeText(getActivity(),"Memuat data ...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -170,5 +173,14 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     @Override
     public void onDeleteFailed() {
         Toast.makeText(getActivity(), "Gagal", Toast.LENGTH_SHORT).show();
+    }
+
+    private Dialog initDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+        builder.setView(R.layout.progress_dialog);
+
+        Dialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 }

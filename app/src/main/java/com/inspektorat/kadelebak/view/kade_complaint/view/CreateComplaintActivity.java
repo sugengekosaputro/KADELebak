@@ -56,12 +56,12 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
     private boolean isAnonymous = false;
     private String employeeId;
-    private int sectionId;
+    private String sectionId;
 
     private ComplaintPresenter presenter;
     private Context context = this;
     private MyPreferencesData myPreferencesData;
-    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,13 +108,11 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
     @Override
     public void showLoading() {
-//        progressDialog.show();
         this.initDialog().show();
     }
 
     @Override
     public void hideLoading() {
-//        progressDialog.dismiss();
         this.initDialog().dismiss();
     }
 
@@ -168,7 +166,7 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
                     SectionModel sectionModel = (SectionModel) parent.getSelectedItem();
-                    sectionId = sectionModel.getSectionId();
+                    sectionId = String.valueOf(sectionModel.getSectionId());
                 }
             }
 
@@ -177,6 +175,26 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
             }
         });
+    }
+
+    @Override
+    public boolean validateInput() {
+        if (sectionId == null) {
+            this.showToast("Operator harus dipilih");
+            return false;
+        }
+
+        if (!isValidInput(edtContent)){
+            edtContent.requestFocus();
+            edtContent.setError(Constant.FORM_ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidInput(TextInputLayout editText) {
+        if (editText.getEditText().getText() == null) return false;
+        return !editText.getEditText().getText().toString().isEmpty();
     }
 
     @OnClick(R.id.btn_create_complaint_send)

@@ -93,7 +93,7 @@ public class ComplaintPresenter {
             @Override
             public void onResponse(Call<List<ComplaintModel>> call, Response<List<ComplaintModel>> response) {
                 List<ComplaintModel> list = response.body();
-
+                hideLoading();
                 if (sectionId.length() == 0) {
                     viewFitur.showDataRoleUser(list);
                     viewFitur.hideIconCreate(true);
@@ -108,6 +108,8 @@ public class ComplaintPresenter {
 
             }
         });
+
+        showLoading();
     }
 
     public void getComplaintById(int complaintId) {
@@ -140,13 +142,10 @@ public class ComplaintPresenter {
         });
     }
 
-    public void creteComplaint(int employeeId, int sectionId, String content, boolean anonymous, boolean notify) {
-        if (content.length() == 0) {
-            viewCreate.setErrorValidationMessage("Tidak Boleh Kosong");
-            viewCreate.setErrorValidationEnabled(true);
-        } else {
+    public void creteComplaint(int employeeId, String sectionId, String content, boolean anonymous, boolean notify) {
+        if (viewCreate.validateInput()) {
             viewCreate.setErrorValidationEnabled(false);
-            ComplaintCreateModel model = new ComplaintCreateModel(content, employeeId, sectionId, anonymous, notify, Util.getDateTimeNow());
+            ComplaintCreateModel model = new ComplaintCreateModel(content, employeeId, Integer.valueOf(sectionId), anonymous, notify, Util.getDateTimeNow());
             saveComplaint(model);
             viewCreate.showLoading();
         }
@@ -187,6 +186,14 @@ public class ComplaintPresenter {
                 viewFitur.onDeleteFailed();
             }
         });
+    }
+
+    public void showLoading(){
+        viewFitur.showLoading();
+    }
+
+    public void hideLoading(){
+        viewFitur.hideLoading();
     }
 
     private ComplaintService initService(){

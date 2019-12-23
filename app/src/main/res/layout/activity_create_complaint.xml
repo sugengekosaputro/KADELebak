@@ -46,7 +46,7 @@
 				android:layout_width="match_parent"
 				android:layout_marginTop="@dimen/marginSize16"
 				android:layout_weight="1"
-				android:text="Pilih Bagian" />
+				android:text="Bagian" />
 
 			<Spinner
 				android:id="@+id/spinner"

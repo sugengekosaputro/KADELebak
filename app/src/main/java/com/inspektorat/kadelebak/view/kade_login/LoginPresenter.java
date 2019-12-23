@@ -127,6 +127,7 @@ public class LoginPresenter extends BasePresenter {
         if (register.validateInput()){
             register.removeError(false);
             this.submit(registerModel);
+            register.showLoading();
         }
     }
 

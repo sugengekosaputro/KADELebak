@@ -1,6 +1,7 @@
 package com.inspektorat.kadelebak.view.kade_login;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -221,9 +223,23 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             return false;
         }
 
-        if (!isValidInput(edtRegisterEmail)) {
-            edtRegisterEmail.requestFocus();
-            edtRegisterEmail.setError(Constant.FORM_ERROR);
+        if (!isRadioChecked(selectedId)) {
+            Toast.makeText(getApplicationContext(), "Gender Harus Dipilih", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (tvDob.getText().length() == 0){
+            Toast.makeText(getApplicationContext(), "Tanggal Lahir Harus Diisi", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (institutionId == null) {
+            Toast.makeText(getApplicationContext(), "Institusi Harus Dipilih", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (positionId == null) {
+            Toast.makeText(getApplicationContext(), "Posisi Harus Dipilih", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -233,18 +249,9 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             return false;
         }
 
-        if (!isRadioChecked(selectedId)) {
-            Toast.makeText(getApplicationContext(), "Pilih Gender Dulu", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (positionId == null) {
-            Toast.makeText(getApplicationContext(), "Pilih Posisi Dulu", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (institutionId == null) {
-            Toast.makeText(getApplicationContext(), "Pilih Institusi Dulu", Toast.LENGTH_SHORT).show();
+        if (!isValidInput(edtRegisterEmail)) {
+            edtRegisterEmail.requestFocus();
+            edtRegisterEmail.setError(Constant.FORM_ERROR);
             return false;
         }
 
@@ -352,11 +359,31 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
 
     @Override
     public void onRegisterSuccess() {
-        Toast.makeText(getApplicationContext(), "Register Berhasil, Password Anda 12345", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Register Berhasil", Toast.LENGTH_SHORT).show();
+        this.finish();
     }
 
     @Override
     public void onRegisterFailed() {
         Toast.makeText(getApplicationContext(), "Register Gagal", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        this.btnRegister.setEnabled(false);
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    private Dialog initDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setView(R.layout.progress_dialog);
+
+        Dialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 }
