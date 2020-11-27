@@ -8,5 +8,11 @@ public class ProfileView {
 
     public interface view {
         void showDataProfile(EmployeeEntity profileList);
+        void onErrorData(String msg);
+    }
+
+    public interface upload{
+        void onUploaded(String msg);
+        void onFailUploaded(String msg);
     }
 }

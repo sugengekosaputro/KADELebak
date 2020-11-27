@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.inspektorat.kadelebak.Constant;
+import com.inspektorat.kadelebak.LineItemDecoration;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.model.User;
+import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_complaint.adapter.ComplaintAdapter;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
@@ -56,6 +61,8 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     String roleId;
     String sectionId;
     boolean stateMenu;
+    LayoutInflater mInflater  = null;
+    ViewGroup mContainer = null;
 
     @BindView(R.id.rv_complaint_fitur)
     RecyclerView recyclerview;
@@ -68,7 +75,10 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_complaint, container, false);
+        mInflater = inflater;
+        mContainer = container;
+
+        View view = inflater.inflate(R.layout.fragment_complaint2, container, false);
         MaterialToolbar toolbar = view.findViewById(R.id.appbarlayout_complaint);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Pengaduan");
@@ -135,6 +145,17 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
     }
 
     @Override
+    public void inflateData(boolean isShow) {
+        if (isShow) {
+            mContainer.findViewById(R.id.no_data_layout).setVisibility(View.GONE);
+            mInflater.inflate(R.layout.fragment_complaint, mContainer, false);
+        } else {
+            mContainer.findViewById(R.id.no_data_layout).setVisibility(View.VISIBLE);
+            mInflater.inflate(R.layout.no_data_layout, mContainer, false);
+        }
+    }
+
+    @Override
     public void showDataRoleUser(List<ComplaintModel> complaintModelList) {
         List<ComplaintModel> complaintModels = Observable.fromIterable(complaintModelList)
                 .filter(complaintModel ->
@@ -143,6 +164,8 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
         complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels, false, this);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
+        recyclerview.addItemDecoration(new LineItemDecoration(getActivity(), LinearLayout.VERTICAL));
+        recyclerview.setHasFixedSize(true);
     }
 
     @Override
@@ -156,6 +179,8 @@ public class ComplaintFragment extends Fragment implements ComplaintView.View {
         complaintAdapter = new ComplaintAdapter(getActivity(), complaintModels, true, this);
         complaintAdapter.notifyDataSetChanged();
         recyclerview.setAdapter(complaintAdapter);
+        recyclerview.addItemDecoration(new LineItemDecoration(getActivity(), LinearLayout.VERTICAL));
+        recyclerview.setHasFixedSize(true);
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 
 import com.inspektorat.kadelebak.Constant;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MyPreferencesData {
 
     private static MyPreferencesData myPreferencesData;
@@ -24,6 +27,16 @@ public class MyPreferencesData {
     public void saveData(String key, String val){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, val);
+        editor.apply();
+    }
+
+    public void saveDataArray(String sectionId){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear().apply();
+
+        Set<String> set = new HashSet<String>();
+        set.add(sectionId);
+        editor.putStringSet("ComplaintList", set);
         editor.apply();
     }
 

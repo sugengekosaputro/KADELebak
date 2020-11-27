@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
 	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
 		android:id="@+id/cv_item_forum"
+		android:visibility="visible"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="4dp"
 		style="@style/CardviewMain"
 		app:cardUseCompatPadding="true">
 
@@ -18,71 +24,220 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:layout_marginTop="@dimen/marginSize8"
-				android:weightSum="2">
+				android:layout_marginBottom="@dimen/marginSize4"
+				android:layout_marginLeft="@dimen/marginSize16"
+				android:layout_marginRight="@dimen/marginSize16"
+				android:layout_marginTop="@dimen/marginSize16"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
 
 				<ImageView
-					android:layout_weight="0.2"
-					android:layout_width="@dimen/marginSize24"
-					android:layout_height="@dimen/marginSize24"
-					android:layout_gravity="center"
-					android:src="@drawable/ic_person_24dp"/>
+					android:id="@+id/image_icon"
+					android:layout_width="@dimen/marginSize40"
+					android:layout_height="@dimen/marginSize40" />
+
+				<View
+					android:layout_width="@dimen/marginSize16"
+					android:layout_height="0dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:text="Emma Richmond"
+						android:id="@+id/tv_item_forum_employee_name"
+						android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+						android:textColor="@color/grey2" />
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/marginSize4"
+						android:orientation="horizontal">
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:gravity="center_vertical"
+							android:text="in "
+							android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="@color/grey1" />
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:gravity="center_vertical"
+							android:text="Hwy, Carthage"
+							android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="@color/blue1"
+							android:textStyle="bold" />
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_margin="@dimen/marginSize16">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/tv_item_forum_employee_content"
+					android:lineSpacingExtra="4dp"
+					android:text="@string/lorem_ipsum_text"
+					android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+					android:textColor="@color/grey3" />
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_marginTop="@dimen/marginSize4"
+				android:background="@color/grey1" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/marginSize50"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:paddingLeft="@dimen/marginSize16"
+				android:paddingRight="@dimen/marginSize16">
 
 				<LinearLayout
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:layout_weight="1.8">
+					android:gravity="center_vertical"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:layout_width="@dimen/marginSize16"
+						android:layout_height="@dimen/marginSize16"
+						android:layout_marginEnd="@dimen/marginSize10"
+						android:layout_marginRight="@dimen/marginSize10"
+						android:background="@drawable/ic_textsms_blue_16dp" />
 
 					<TextView
-						style="@style/TextViewMain"
-						android:id="@+id/tv_item_forum_employee_name"
-						android:text="Username User 1"/>
-					<TextView
-						style="@style/TextViewMain"
-						android:layout_marginTop="@dimen/marginSize8"
-						android:text="1 Jan 2019 | 17:00"
-						android:textSize="@dimen/textSize12"
-						android:textColor="@color/grey2"/>
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						android:id="@+id/tv_item_forum_employee_comments"
+						tools:text="Komentar"
+						android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+						android:textColor="@color/grey2" />
+
 				</LinearLayout>
 
-			</LinearLayout>
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical">
-				<TextView
-					style="@style/TextViewMain"
-					android:id="@+id/tv_item_forum_employee_content"
-					android:text="@string/lorem_ipsum_text"
-					android:textSize="@dimen/textSize14"
-					android:padding="@dimen/marginSize8"/>
-			</LinearLayout>
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:background="@color/grey1"
-				android:layout_marginTop="@dimen/marginSize8"/>
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:padding="@dimen/marginSize8">
+				<View
+					android:layout_width="@dimen/marginSize16"
+					android:layout_height="0dp" />
 
-				<ImageView
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:gravity="center_vertical"
+					android:orientation="horizontal">
+
+				</LinearLayout>
+
+				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:src="@drawable/ic_textsms_blue_16dp" />
+					android:gravity="end|right"
+					tools:text="3h ago"
+					android:id="@+id/tv_item_forum_employee_time"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+					android:textColor="@color/grey3" />
 
-				<TextView
-					style="@style/TextViewMain"
-					android:layout_marginLeft="@dimen/marginSize8"
-					android:text="Komentar"
-					android:textSize="10sp"
-					android:textColor="@color/grey2"
-					android:gravity="top"/>
 			</LinearLayout>
+
 		</LinearLayout>
 	</androidx.cardview.widget.CardView>
+	<!--	<androidx.cardview.widget.CardView-->
+	<!--		style="@style/CardviewMain"-->
+	<!--		app:cardUseCompatPadding="true">-->
+
+	<!--		<LinearLayout-->
+	<!--			android:layout_width="match_parent"-->
+	<!--			android:layout_height="wrap_content"-->
+	<!--			android:orientation="vertical">-->
+
+	<!--			<LinearLayout-->
+	<!--				android:layout_width="match_parent"-->
+	<!--				android:layout_height="wrap_content"-->
+	<!--				android:orientation="horizontal"-->
+	<!--				android:layout_marginTop="@dimen/marginSize8"-->
+	<!--				android:weightSum="2">-->
+
+	<!--				<ImageView-->
+	<!--					android:layout_weight="0.2"-->
+	<!--					android:layout_width="@dimen/marginSize24"-->
+	<!--					android:layout_height="@dimen/marginSize24"-->
+	<!--					android:layout_gravity="center"-->
+	<!--					android:src="@drawable/ic_person_24dp"/>-->
+
+	<!--				<LinearLayout-->
+	<!--					android:layout_width="wrap_content"-->
+	<!--					android:layout_height="wrap_content"-->
+	<!--					android:orientation="vertical"-->
+	<!--					android:layout_weight="1.8">-->
+
+	<!--					<TextView-->
+	<!--						style="@style/TextViewMain"-->
+	<!--						android:text="Username User 1"/>-->
+	<!--					<TextView-->
+	<!--						style="@style/TextViewMain"-->
+	<!--						android:layout_marginTop="@dimen/marginSize8"-->
+	<!--						android:text="1 Jan 2019 | 17:00"-->
+	<!--						android:textSize="@dimen/textSize12"-->
+	<!--						android:textColor="@color/grey2"/>-->
+	<!--				</LinearLayout>-->
+
+	<!--			</LinearLayout>-->
+	<!--			<LinearLayout-->
+	<!--				android:layout_width="match_parent"-->
+	<!--				android:layout_height="wrap_content"-->
+	<!--				android:orientation="vertical">-->
+	<!--				<TextView-->
+	<!--					style="@style/TextViewMain"-->
+	<!--					android:text="@string/lorem_ipsum_text"-->
+	<!--					android:textSize="@dimen/textSize14"-->
+	<!--					android:padding="@dimen/marginSize8"/>-->
+	<!--			</LinearLayout>-->
+	<!--			<View-->
+	<!--				android:layout_width="match_parent"-->
+	<!--				android:layout_height="1dp"-->
+	<!--				android:background="@color/grey1"-->
+	<!--				android:layout_marginTop="@dimen/marginSize8"/>-->
+	<!--			<LinearLayout-->
+	<!--				android:layout_width="match_parent"-->
+	<!--				android:layout_height="wrap_content"-->
+	<!--				android:orientation="horizontal"-->
+	<!--				android:padding="@dimen/marginSize8">-->
+
+	<!--				<ImageView-->
+	<!--					android:layout_width="wrap_content"-->
+	<!--					android:layout_height="wrap_content"-->
+	<!--					android:src="@drawable/ic_textsms_blue_16dp" />-->
+
+	<!--				<TextView-->
+	<!--					style="@style/TextViewMain"-->
+	<!--					android:layout_marginLeft="@dimen/marginSize8"-->
+	<!--					android:text="Komentar"-->
+	<!--					android:textSize="10sp"-->
+	<!--					android:textColor="@color/grey2"-->
+	<!--					android:gravity="top"/>-->
+	<!--			</LinearLayout>-->
+	<!--		</LinearLayout>-->
+	<!--	</androidx.cardview.widget.CardView>-->
 </LinearLayout>

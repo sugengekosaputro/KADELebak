@@ -1,13 +1,23 @@
 package com.inspektorat.kadelebak.view.kade_login;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,10 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
@@ -30,6 +44,8 @@ import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
 
 import org.joda.time.LocalDateTime;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -41,8 +57,10 @@ import io.reactivex.Observable;
 
 public class RegisterActivity extends AppCompatActivity implements LoginView.register {
 
-    @BindView(R.id.edt_register_nip)
-    TextInputLayout edtRegisterNip;
+    @BindView(R.id.edt_work_unit)
+    TextInputLayout edtWorkUnit;
+    @BindView(R.id.edt_register_password)
+    TextInputLayout edtPassword;
     @BindView(R.id.edt_register_name)
     TextInputLayout edtRegisterName;
     @BindView(R.id.edt_register_born_place)
@@ -59,10 +77,6 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     TextView tvDob;
     @BindView(R.id.ll_dob_picker)
     LinearLayout llDobPicker;
-    @BindView(R.id.edt_register_prefix)
-    TextInputLayout edtRegisterPrefix;
-    @BindView(R.id.edt_register_suffix)
-    TextInputLayout edtRegisterSuffix;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     RadioButton radioButton;
@@ -71,11 +85,22 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     @BindView(R.id.btn_register)
     MaterialButton btnRegister;
 
+    @BindView(R.id.btn_choose_image)
+    Button btnChoose;
+
+    @BindView(R.id.iv_preview)
+    ImageView imageView;
+
+    Bitmap bitmap;
+    File file;
+    String imagePath;
+
     private LoginPresenter presenter;
     private RegisterModel registerModel;
     private String gender, institutionId, positionId;
     private LocalDateTime localDTStart = LocalDateTime.now();
 
+    public static final int PICK_IMAGE = 212;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         ButterKnife.bind(this);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Register");
+
         presenter = new LoginPresenter(this, getApplicationContext());
 
         this.initSpinner();
@@ -144,60 +170,47 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     @OnClick(R.id.btn_register)
     void onClickRegister() {
         registerModel = this.generateForm(
-                edtRegisterNip,
                 edtRegisterName,
-                edtRegisterPrefix,
-                edtRegisterSuffix,
                 tvDob,
                 edtRegisterBornPlace,
                 this.gender,
                 edtRegisterPhone,
                 edtRegisterEmail,
+                edtWorkUnit,
                 institutionId,
-                positionId);
+                positionId,
+                file,
+                edtPassword);
 
         this.presenter.registerAccount(registerModel);
-
-//        Log.d("Geng", "onClickRegister: "
-//                +model.getNip()+", "
-//                +model.getName()+", "
-//                +model.getBornPlace()+", "
-//                +model.getDob()+", "
-//                +model.getGender()+", "
-//                +model.getPhone()+", "
-//                +model.getPositionId()+", "
-//                +model.getSectionId()+", "
-//                +model.getPrefixTitle()+", "
-//                +model.getSuffixTitle()+", "
-//        );
     }
 
     private RegisterModel generateForm(
-            TextInputLayout nip,
             TextInputLayout name,
-            TextInputLayout prefix,
-            TextInputLayout suffix,
             TextView dob,
             TextInputLayout bornPlace,
             String gender,
             TextInputLayout phone,
             TextInputLayout email,
+            TextInputLayout unit,
             String institutionId,
-            String positionId) {
+            String positionId,
+            File file,
+            TextInputLayout password) {
         RegisterModel model = new RegisterModel();
-        model.setNip(nip.getEditText().getText().toString());
         model.setName(name.getEditText().getText().toString());
-        model.setPrefixTitle(prefix.getEditText().getText().toString());
-        model.setSuffixTitle(suffix.getEditText().getText().toString());
         model.setDob(dob.getText().toString());
         model.setBornPlace(bornPlace.getEditText().getText().toString());
         model.setGender(gender);
         model.setPhone(phone.getEditText().getText().toString());
         model.setEmail(email.getEditText().getText().toString());
+        model.setUnit(unit.getEditText().getText().toString());
         model.setPositionId(positionId);
         model.setInstitutionId(institutionId);
-        model.setRoleId("4");
+        model.setRoleId("1");
         model.setSectionId(null);
+        model.setFile(file);
+        model.setPassword(password.getEditText().getText().toString());
         return model;
     }
 
@@ -205,9 +218,9 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     public boolean validateInput() {
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
-        if (!isValidInput(edtRegisterNip)) {
-            edtRegisterNip.requestFocus();
-            edtRegisterNip.setError(Constant.FORM_ERROR);
+        if (!isValidInput(edtWorkUnit)) {
+            edtWorkUnit.requestFocus();
+            edtWorkUnit.setError(Constant.FORM_ERROR);
             return false;
         }
 
@@ -255,6 +268,12 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             return false;
         }
 
+        if (!isValidInput(edtPassword) || edtPassword.getEditText().getText().length() < 6 ) {
+            edtPassword.requestFocus();
+            edtPassword.setError("Password minimal 6 karakter");
+            return false;
+        }
+
         return true;
     }
 
@@ -278,7 +297,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
 
     @Override
     public void removeError(boolean status) {
-        edtRegisterNip.setErrorEnabled(status);
+        edtWorkUnit.setErrorEnabled(status);
         edtRegisterName.setErrorEnabled(status);
         edtRegisterBornPlace.setErrorEnabled(status);
         edtRegisterPhone.setErrorEnabled(status);
@@ -357,6 +376,42 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         });
     }
 
+    @OnClick(R.id.btn_choose_image)
+    void pickFromGallery(){
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent,PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+
+            try {
+                //getting image from gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                //Setting image to ImageView
+                imageView.setImageBitmap(bitmap);
+                imagePath = getPath(filePath);
+
+                file = new File(imagePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.d("RES", "onActivityResult: ");
+        }
+    }
+
     @Override
     public void onRegisterSuccess() {
         Toast.makeText(getApplicationContext(), "Register Berhasil", Toast.LENGTH_SHORT).show();
@@ -378,12 +433,11 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
 
     }
 
-    private Dialog initDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-        builder.setView(R.layout.progress_dialog);
-
-        Dialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        return dialog;
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 }

@@ -2,6 +2,7 @@ package com.inspektorat.kadelebak.view.kade_complaint.model.list_page;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.inspektorat.kadelebak.view.kade_village.entity.Institution;
 
 import java.io.Serializable;
 
@@ -19,6 +20,9 @@ public class Publisher implements Serializable {
     @SerializedName("section")
     @Expose
     private Section section;
+    @Expose
+    @SerializedName("institution")
+    private Institution institution;
     private final static long serialVersionUID = -8403664891145116992L;
 
     public int getEmployeeId() {
@@ -51,5 +55,13 @@ public class Publisher implements Serializable {
 
     public void setSection(Section section) {
         this.section = section;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
     }
 }

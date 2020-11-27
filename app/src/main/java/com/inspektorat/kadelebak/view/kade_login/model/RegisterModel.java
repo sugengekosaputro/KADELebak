@@ -1,27 +1,33 @@
 package com.inspektorat.kadelebak.view.kade_login.model;
 
+import java.io.File;
+
 public class RegisterModel {
 
-    private String nip;
+    private String employeeId;
     private String name;
-    private String prefixTitle;
-    private String suffixTitle;
     private String dob;
     private String bornPlace;
     private String gender;
     private String phone;
     private String email;
+    private String unit;
     private String positionId;
     private String institutionId;
     private String roleId;
     private String sectionId;
+    private File file;
+    private String password;
+//    private String statusUpload;
+//    private String statusVerified;
+//    private String verified;
 
-    public String getNip() {
-        return nip;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setNip(String nip) {
-        this.nip = nip;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {
@@ -30,22 +36,6 @@ public class RegisterModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPrefixTitle() {
-        return prefixTitle;
-    }
-
-    public void setPrefixTitle(String prefixTitle) {
-        this.prefixTitle = prefixTitle;
-    }
-
-    public String getSuffixTitle() {
-        return suffixTitle;
-    }
-
-    public void setSuffixTitle(String suffixTitle) {
-        this.suffixTitle = suffixTitle;
     }
 
     public String getDob() {
@@ -119,4 +109,52 @@ public class RegisterModel {
     public void setSectionId(String sectionId) {
         this.sectionId = sectionId;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+//
+//    public String getStatusUpload() {
+//        return statusUpload;
+//    }
+//
+//    public void setStatusUpload(String statusUpload) {
+//        this.statusUpload = statusUpload;
+//    }
+//
+//    public String getStatusVerified() {
+//        return statusVerified;
+//    }
+//
+//    public void setStatusVerified(String statusVerified) {
+//        this.statusVerified = statusVerified;
+//    }
+//
+//    public String getVerified() {
+//        return verified;
+//    }
+//
+//    public void setVerified(String verified) {
+//        this.verified = verified;
+//    }
 }

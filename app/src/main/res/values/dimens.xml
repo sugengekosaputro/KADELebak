@@ -8,10 +8,12 @@
     <dimen name="textSize16">16sp</dimen>
     <dimen name="textSize20">20sp</dimen>
 
+    <dimen name="marginSize4">4dp</dimen>
     <dimen name="marginSize8">8dp</dimen>
     <dimen name="marginSize10">10dp</dimen>
     <dimen name="marginSize16">16dp</dimen>
     <dimen name="marginSize24">24dp</dimen>
+    <dimen name="marginSize40">40dp</dimen>
     <dimen name="marginSize50">50dp</dimen>
     <dimen name="marginSize70">70dp</dimen>
 

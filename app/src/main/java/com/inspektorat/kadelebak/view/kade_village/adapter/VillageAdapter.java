@@ -63,6 +63,7 @@ public class VillageAdapter extends RecyclerView.Adapter<VillageAdapter.ViewHold
             Intent intent = new Intent(context, DetailVillageActivity.class);
             bundle.putSerializable(Constant.SERIALIZABLE_VILLAGE, institution);
             intent.putExtras(bundle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
 

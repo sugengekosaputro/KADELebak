@@ -2,36 +2,33 @@ package com.inspektorat.kadelebak.view.kade_complaint.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
-import com.inspektorat.kadelebak.model.User;
-import com.inspektorat.kadelebak.view.kade_complaint.ComplaintService;
+import com.inspektorat.kadelebak.view.Util;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.CommentList;
 import com.inspektorat.kadelebak.view.kade_complaint.model.list_page.ComplaintModel;
 import com.inspektorat.kadelebak.view.kade_complaint.presenter.ComplaintPresenter;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ComplaintView;
 import com.inspektorat.kadelebak.view.kade_complaint.view.ContentComplaintActivity;
-import com.inspektorat.kadelebak.view.kade_forum.view.ContentForumActivity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.ViewHolder> {
 
@@ -63,12 +60,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
         myPreferencesData = MyPreferencesData.getInstance(context);
         employeeId = Integer.parseInt(myPreferencesData.getData(Constant.EMPLOYEE_ID));
         String complaintId = String.valueOf(complaintModel.getComplaintId());
-
-        if (complaintModel.isAnonymous()) {
-            holder.name.setText(context.getResources().getString(R.string.anonymous));
-        } else {
-            holder.name.setText(complaintModel.getPublisher().getName());
-        }
+        String name = null;
 
 //        if (complaintModel.isNotify() || complaintModel.getPublisher().getEmployeeId() != employeeId) {
 //            int colorBlue = context.getResources().getColor(R.color.blue1);
@@ -84,7 +76,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             CommentList comment = complaintModel.getCommentList().get(complaintModel.getCommentList().size() - 1);
             holder.preview.setText(comment.getComment());
         }
-        holder.section.setText(complaintModel.getSectionId().getName());
+        holder.section.setText(complaintModel.getDateTime());
 
         holder.layout.setOnClickListener(view -> {
             Intent intent = new Intent(context, ContentComplaintActivity.class);
@@ -95,6 +87,13 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
         });
 
         if (canDelete) {
+            if (complaintModel.isAnonymous()) {
+                name = "Anonymous";
+            } else {
+                name = Util.nameBuilderCapitalized(complaintModel.getPublisher().getName());
+            }
+
+            holder.name.setText(name);
             holder.layout.setOnLongClickListener(view -> {
                 new MaterialAlertDialogBuilder(context, R.style.MyDialog)
                         .setTitle("Peringatan")
@@ -109,7 +108,18 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
                         .show();
                 return true;
             });
+
+        } else {
+            name = complaintModel.getSectionId().getName();
+            holder.name.setText(name);
         }
+
+        ColorGenerator generator = ColorGenerator.DEFAULT;
+        int color= generator.getColor(complaintModel.getComplaintId());
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(Util.imageInitial(name), color, 20);
+        holder.icon.setImageDrawable(drawable);
     }
 
     @Override
@@ -131,8 +141,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
         @BindView(R.id.tv_complaint_section)
         TextView section;
 
-        @BindView(R.id.view_item_indicator_complaint)
-        View indicator;
+        @BindView(R.id.image_icon)
+        ImageView icon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

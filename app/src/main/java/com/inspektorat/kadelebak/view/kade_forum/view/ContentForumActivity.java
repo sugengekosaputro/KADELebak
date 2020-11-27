@@ -3,6 +3,7 @@ package com.inspektorat.kadelebak.view.kade_forum.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
@@ -56,6 +59,8 @@ public class ContentForumActivity extends AppCompatActivity implements ForumView
     TextInputLayout edtContent;
     @BindView(R.id.sv_content_forum)
     ScrollView svContentForum;
+    @BindView(R.id.image_icon)
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +108,18 @@ public class ContentForumActivity extends AppCompatActivity implements ForumView
     public void showDataForum(ForumModel forumModel) {
         int size = forumModel.getCommentList().size();
 
-        tvName.setText(forumModel.getPublisher().getName());
+        String name = forumModel.getPublisher().getName();
+        tvName.setText(name);
         tvContent.setText(forumModel.getContent());
         tvCommentar.setText(String.valueOf(forumModel.getCommentList().size()));
+
+        ColorGenerator generator = ColorGenerator.DEFAULT;
+        int color= generator.getColor(forumModel.getForumId());
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(Util.imageInitial(name), color, 20);
+
+        image.setImageDrawable(drawable);
 
         if (size > 0) {
             tvCommentar.setText(context.getResources().getString(R.string.x_comments, size));

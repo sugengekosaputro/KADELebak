@@ -21,18 +21,6 @@
 
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
-				android:id="@+id/edt_register_nip"
-				android:hint="NIP"
-				app:errorEnabled="true"
-				app:errorTextColor="@color/red">
-
-				<com.google.android.material.textfield.TextInputEditText
-					style="@style/EditTextDefault" />
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.textfield.TextInputLayout
-				style="@style/InputLayoutDefault"
-				android:layout_marginTop="@dimen/marginSize8"
 				android:id="@+id/edt_register_name"
 				android:hint="Nama Lengkap"
 				app:errorEnabled="true"
@@ -42,41 +30,6 @@
 					style="@style/EditTextDefault"
 					android:inputType="text"/>
 			</com.google.android.material.textfield.TextInputLayout>
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:weightSum="2">
-
-				<com.google.android.material.textfield.TextInputLayout
-					style="@style/InputLayoutDefault"
-					android:layout_weight="1"
-					android:layout_marginTop="@dimen/marginSize8"
-					android:id="@+id/edt_register_prefix"
-					android:hint="Gelar Depan"
-					app:errorEnabled="true"
-					app:errorTextColor="@color/red">
-
-					<com.google.android.material.textfield.TextInputEditText
-						style="@style/EditTextDefault"
-						android:inputType="text"/>
-				</com.google.android.material.textfield.TextInputLayout>
-
-				<com.google.android.material.textfield.TextInputLayout
-					style="@style/InputLayoutDefault"
-					android:layout_weight="1"
-					android:layout_marginTop="@dimen/marginSize8"
-					android:id="@+id/edt_register_suffix"
-					android:hint="Gelar Belakang"
-					app:errorEnabled="true"
-					app:errorTextColor="@color/red">
-
-					<com.google.android.material.textfield.TextInputEditText
-						style="@style/EditTextDefault"
-						android:inputType="text"/>
-				</com.google.android.material.textfield.TextInputLayout>
-			</LinearLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
@@ -163,6 +116,18 @@
 
 			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
+				android:id="@+id/edt_work_unit"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:hint="Unit Kerja"
+				app:errorEnabled="true"
+				app:errorTextColor="@color/red">
+
+				<com.google.android.material.textfield.TextInputEditText
+					style="@style/EditTextDefault" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/InputLayoutDefault"
 				android:layout_marginTop="@dimen/marginSize8"
 				android:id="@+id/edt_register_phone"
 				android:hint="No.Telepon"
@@ -186,6 +151,33 @@
 					style="@style/EditTextDefault"
 					android:inputType="textEmailAddress" />
 			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/edt_register_password"
+				style="@style/InputLayoutDefault"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:hint="@string/label_password"
+				app:endIconMode="password_toggle"
+				app:helperText="Password Minimal 6 Karakter"
+				app:errorEnabled="true"
+				app:errorTextColor="@color/red">
+
+				<com.google.android.material.textfield.TextInputEditText
+					style="@style/EditTextDefault"
+					android:inputType="textPassword" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:id="@+id/iv_preview"
+				android:background="@mipmap/ic_launcher"/>
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="pilih foto"
+				android:id="@+id/btn_choose_image"
+				android:layout_marginTop="@dimen/marginSize16"/>
 		</LinearLayout>
 	</ScrollView>
 

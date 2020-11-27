@@ -30,6 +30,7 @@
 
 	<string name="anonymous">Anonymous</string>
 	<string name="x_comments">%1$d Komentar</string>
+	<string name="x_region">%1$s</string>
 	<string name="no_comments">Belum ada komentar</string>
 
 	<string name="home_content_news">Berita Terbaru</string>

@@ -11,7 +11,7 @@
             android:id="@+id/rv_forum_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/paddingSize16"/>
+            android:padding="@dimen/marginSize8"/>
     </LinearLayout>
 
 </FrameLayout>

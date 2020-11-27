@@ -15,6 +15,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="yellow">#ffaa15</color>
     <color name="red">#FF4040</color>
     <color name="custom_transparent">#00ffffff</color>
 </resources>

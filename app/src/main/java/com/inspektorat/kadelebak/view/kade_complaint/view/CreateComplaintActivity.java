@@ -144,6 +144,7 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
 
     @Override
     public void renderSpinner(List<SectionModel> sectionModelList) {
+
         ArrayAdapter<SectionModel> adapter = new ArrayAdapter<SectionModel>(this,
                 android.R.layout.simple_spinner_item, sectionModelList){
             @Override
@@ -155,11 +156,22 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
                 }
             }
         };
+
+        /*todo to save section id*/
+
+//        if (myPreferencesData.getData("ComplaintList").length() != sectionModelList.size()) {
+//            for (SectionModel sec : sectionModelList)
+//                myPreferencesData.saveDataArray(String.valueOf(sec.getSectionId()));
+//            }
+//        }
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         SectionModel sm = new SectionModel(0, "Pilih Operator");
         adapter.insert(sm,0);
         spinner.setAdapter(adapter);
+
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -167,6 +179,7 @@ public class CreateComplaintActivity extends AppCompatActivity implements Compla
                 if (position > 0) {
                     SectionModel sectionModel = (SectionModel) parent.getSelectedItem();
                     sectionId = String.valueOf(sectionModel.getSectionId());
+
                 }
             }
 

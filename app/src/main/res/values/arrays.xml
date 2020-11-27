@@ -21,7 +21,7 @@
 
     <string-array name="forum_portal_tab_title">
         <item>Timeline</item>
-        <item>My Forum</item>
+        <item>Forum Saya</item>
     </string-array>
 
 </resources>

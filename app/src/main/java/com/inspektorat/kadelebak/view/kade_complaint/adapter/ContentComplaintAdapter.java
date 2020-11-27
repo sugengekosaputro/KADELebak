@@ -58,11 +58,19 @@ public class ContentComplaintAdapter extends RecyclerView.Adapter<ContentComplai
 
         String username = commentList.getSender().getName();
         if (employeeId.equals(String.valueOf(commentList.getSender().getEmployeeId())) && employeeId.equals(publisher)) {
-            username = "Anda";
+            username = commentList.getSender().getName();
+        }
+
+        if (employeeId.equals(String.valueOf(commentList.getSender().getEmployeeId()))){
+            holder.name.setTextColor(context.getResources().getColor(R.color.blue1));
         }
 
         if (publisher.equals(sender) && isAnonymous){
             username = context.getResources().getString(R.string.anonymous);
+        }
+
+        if (commentList.getSender().getSection() != null) {
+            username = "("+commentList.getSender().getSection().getName()+") "+commentList.getSender().getName();
         }
 
         holder.name.setText(username);

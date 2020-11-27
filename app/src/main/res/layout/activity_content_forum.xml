@@ -21,56 +21,97 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:weightSum="2">
+				android:orientation="horizontal">
 
 				<ImageView
-					android:layout_weight="0.2"
-					android:layout_width="@dimen/marginSize24"
-					android:layout_height="@dimen/marginSize24"
-					android:layout_gravity="center"
-					android:src="@drawable/ic_person_24dp"/>
+					android:id="@+id/image_icon"
+					android:layout_width="@dimen/marginSize40"
+					android:layout_height="@dimen/marginSize40" />
+
+
+				<View
+					android:layout_width="@dimen/marginSize16"
+					android:layout_height="0dp" />
 
 				<LinearLayout
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:layout_weight="1.8">
+					android:orientation="vertical">
 
 					<TextView
-						style="@style/TextViewMain"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center_vertical"
+						tools:text="Bsilico Eat"
 						android:id="@+id/tv_content_forum_name"
-						android:text="Username User 1"/>
-					<TextView
-						style="@style/TextViewMain"
-						android:layout_marginTop="@dimen/marginSize8"
-						android:text="1 Jan 2019 | 17:00"
-						android:textSize="@dimen/textSize12"
-						android:textColor="@color/grey2"/>
-				</LinearLayout>
+						android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+						android:textColor="@color/blue2" />
 
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/marginSize4"
+						android:orientation="horizontal"
+						android:weightSum="1">
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:gravity="center_vertical"
+							android:text="Dari "
+							android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="@color/grey1" />
+
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:gravity="center_vertical"
+							android:id="@+id/tv_content_complaint_institution"
+							tools:text="Hwy, Carthage"
+							android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="@color/blue1"
+							android:textStyle="bold" />
+
+						<TextView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:id="@+id/tv_content_complaint_date"
+							tools:text="June 1, 2015"
+							android:gravity="right"
+							android:layout_weight="1"
+							android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="@color/grey2" />
+					</LinearLayout>
+				</LinearLayout>
 			</LinearLayout>
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/marginSize8"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:layout_marginTop="@dimen/marginSize16">
+
 				<TextView
-					style="@style/TextViewMain"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
 					android:id="@+id/tv_content_forum_content"
+					android:lineSpacingExtra="4dp"
 					android:text="@string/lorem_ipsum_text"
-					android:textSize="@dimen/textSize14"/>
+					android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+					android:textColor="@color/grey3" />
 			</LinearLayout>
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
-				android:layout_marginTop="@dimen/marginSize24">
+				android:layout_marginTop="@dimen/marginSize24"
+				android:gravity="center">
+
 				<TextView
 					style="@style/TextViewMain"
 					android:id="@+id/tv_content_forum_counter"
-					android:text="3 Komentar"/>
+					tools:text="3 Komentar" />
 			</LinearLayout>
 
 			<androidx.recyclerview.widget.RecyclerView
@@ -114,7 +155,7 @@
 					android:layout_width="@dimen/marginSize24"
 					android:layout_height="@dimen/marginSize24"
 					android:layout_gravity="center"
-					android:src="@drawable/ic_send_white_24dp"/>
+					android:background="@drawable/ic_send_white_24dp"/>
 			</LinearLayout>
 		</LinearLayout>
 

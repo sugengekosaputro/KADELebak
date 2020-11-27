@@ -94,6 +94,12 @@ public class ComplaintPresenter {
             public void onResponse(Call<List<ComplaintModel>> call, Response<List<ComplaintModel>> response) {
                 List<ComplaintModel> list = response.body();
                 hideLoading();
+                if (list.size() > 0){
+                    viewFitur.inflateData(true);
+                } else {
+                    viewFitur.inflateData(false);
+                }
+
                 if (sectionId.length() == 0) {
                     viewFitur.showDataRoleUser(list);
                     viewFitur.hideIconCreate(true);

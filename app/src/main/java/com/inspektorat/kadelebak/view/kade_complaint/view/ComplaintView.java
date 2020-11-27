@@ -12,6 +12,7 @@ public class ComplaintView {
     public interface View {
         void showLoading();
         void hideLoading();
+        void inflateData(boolean show);
         void showError(String message);
         void hideIconCreate(boolean isVisible);
         void showDataRoleUser(List<ComplaintModel> complaintModelList);

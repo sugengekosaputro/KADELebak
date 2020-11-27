@@ -8,6 +8,7 @@ public class DashboardView {
         void showLoading();
         void hideLoading();
         void showError(String message);
+        void userNotExist(String message);
         void showDataFitur(List<String> listFitur);
     }
 }

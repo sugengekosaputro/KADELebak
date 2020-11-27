@@ -4,6 +4,8 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 	<application
 		android:allowBackup="true"
@@ -11,7 +13,8 @@
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
-		android:theme="@style/AppTheme">
+		android:theme="@style/AppTheme"
+		android:usesCleartextTraffic="true">
 		<activity android:name=".view.kade_login.RegisterActivity" android:label="Register"></activity>
 		<activity
 			android:name=".view.kade_support.SupportContentActivity"
@@ -47,6 +50,9 @@
 			android:name=".view.kade_dashboard.DashboardActivity"
 			android:label="@string/app_name"
 			android:theme="@style/AppTheme.NoActionBar" />
+
+		<activity android:name=".view.kade_profile.UploadActivity"
+			android:theme="@style/AppTheme.NoActionBar"/>
 		<activity android:name=".MainActivity" />
 	</application>
 

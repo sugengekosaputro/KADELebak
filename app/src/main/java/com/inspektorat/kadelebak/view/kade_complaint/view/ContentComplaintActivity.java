@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
@@ -56,6 +59,10 @@ public class ContentComplaintActivity extends AppCompatActivity implements Compl
     LinearLayout ll_btn_send_complaint;
     @BindView(R.id.tv_content_complaint_date)
     TextView tvDate;
+    @BindView(R.id.tv_content_complaint_institution)
+    TextView tvIinstitution;
+    @BindView(R.id.image_icon)
+    ImageView image;
 
 
     @Override
@@ -134,15 +141,29 @@ public class ContentComplaintActivity extends AppCompatActivity implements Compl
     public void showDataComplaint(ComplaintModel complaintModel) {
         int size = complaintModel.getCommentList().size();
         String publisher = String.valueOf(complaintModel.getPublisher().getEmployeeId());
+        String name = complaintModel.getPublisher().getName();
+
+
+        ColorGenerator generator = ColorGenerator.DEFAULT;
+        int color= generator.getColor(complaintModel.getComplaintId());
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(Util.imageInitial(name), color, 20);
+
+        image.setImageDrawable(drawable);
 
         if (isAnonymous) {
             tvName.setText(context.getResources().getString(R.string.anonymous));
         } else {
-            tvName.setText(complaintModel.getPublisher().getName());
+            tvName.setText(name);
         }
 
         tvContent.setText(complaintModel.getContent());
         tvDate.setText(complaintModel.getDateTimeCreated());
+        tvIinstitution.setText(
+                context.getResources()
+                        .getString(R.string.x_region,
+                                complaintModel.getPublisher().getInstitution().getRegion().getName()));
 
         if (size > 0) {
             tvCounter.setText(context.getResources().getString(R.string.x_comments, size));

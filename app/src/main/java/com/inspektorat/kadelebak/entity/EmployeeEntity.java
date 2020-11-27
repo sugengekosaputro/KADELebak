@@ -49,6 +49,16 @@ public class EmployeeEntity implements Serializable {
     @SerializedName("section")
     @Expose
     private SectionEntity section;
+    @SerializedName("verified")
+    @Expose
+    private boolean verified;
+    @SerializedName("statusVerified")
+    @Expose
+    private int statusVerified;
+    @SerializedName("unit")
+    @Expose
+    private String unit;
+
     private final static long serialVersionUID = -1570470978303137875L;
 
     public int getEmployeeId() {
@@ -161,5 +171,29 @@ public class EmployeeEntity implements Serializable {
 
     public void setSection(SectionEntity section) {
         this.section = section;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public int getStatusVerified() {
+        return statusVerified;
+    }
+
+    public void setStatusVerified(int statusVerified) {
+        this.statusVerified = statusVerified;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }
