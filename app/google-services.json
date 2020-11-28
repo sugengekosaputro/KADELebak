@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "537274250603",
+    "firebase_url": "https://kade-lebak.firebaseio.com",
+    "project_id": "kade-lebak",
+    "storage_bucket": "kade-lebak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537274250603:android:dca79aaf7a59d402ca882e",
+        "android_client_info": {
+          "package_name": "com.inspektorat.kadelebak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537274250603-la3nvhnom5fi0cul5976c5k9orguokic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inspektorat.kadelebak",
+            "certificate_hash": "20a490d98106079604c03e1cc17a752b25df65f0"
+          }
+        },
+        {
+          "client_id": "537274250603-q5k3ikh7q0aaimfoh6qpfslp4nfds4dn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIWkR9SmxXFHKgAuEwOFQgiqsf3S0qUV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537274250603-7jeim2bclo62dft9dm29cte81li71vum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

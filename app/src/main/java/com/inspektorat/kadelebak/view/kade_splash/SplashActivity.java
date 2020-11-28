@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.data.MyPreferencesData;
 import com.inspektorat.kadelebak.view.Util;
@@ -24,6 +25,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @BindView(R.id.iv_splash)
     ImageView ivSplash;
     private long delay = 500;
+    private MyPreferencesData myPreferencesData;
 
     SplashPresenter presenter;
     @Override
@@ -32,21 +34,24 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         overridePendingTransition(R.anim.fade_in, 0);
+        this.myPreferencesData = MyPreferencesData.getInstance(this);
 
-        presenter = new SplashPresenter(this,getApplicationContext());
+        presenter = new SplashPresenter(this,getApplicationContext(), myPreferencesData.getData(Constant.EMAIL));
     }
 
     @Override
-    public void redirectActivity() {
+    public void redirectActivity(String email) {
+        Toast.makeText(getApplicationContext(), "redirectActivity() SplashActivity : "+email, Toast.LENGTH_SHORT).show();
         goWaitAndAnimateEnd(new DashboardActivity());
     }
 
     @Override
     public void onLogin() {
         goWaitAndAnimateEnd(new LoginActivity());
+        Toast.makeText(getApplicationContext(), "onLogin() SplashActivity", Toast.LENGTH_SHORT).show();
     }
 
-    private void goWaitAndAnimateEnd(Activity page) {
+    public void goWaitAndAnimateEnd(Activity page) {
         ivSplash.postDelayed(() -> {
             Intent I = new Intent(SplashActivity.this, page.getClass());
             startActivity(I);

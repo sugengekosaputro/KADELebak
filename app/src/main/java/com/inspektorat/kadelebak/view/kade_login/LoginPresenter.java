@@ -104,7 +104,7 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void retrofitAuth(String email, String pass) {
-        Call<UserAuthEntity> call = this.initService().getDataUser(email, pass);
+        Call<UserAuthEntity> call = this.initService().getDataUser(email);
         call.enqueue(new Callback<UserAuthEntity>() {
             @Override
             public void onResponse(Call<UserAuthEntity> call, Response<UserAuthEntity> response) {
