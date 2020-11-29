@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Constant {
 
     //local
-    public static final String BASE_URL = "http://192.168.43.2:8080/";
+    //public static final String BASE_URL = "http://192.168.43.2:8080/";
 
-    //    public static final String BASE_URL = "http://36.92.143.137:8080/kedelebakapi/";
+    public static final String BASE_URL = "http://36.92.143.137:8080/kedelebakapi/";
 
     public static final String SHARED_PREFERENCES_NAME = "MY_SHARED_PREFERENCES_DATA";
 
