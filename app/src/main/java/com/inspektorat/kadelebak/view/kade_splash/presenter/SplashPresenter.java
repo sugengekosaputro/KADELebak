@@ -121,7 +121,6 @@ public class SplashPresenter {
                             String.valueOf(verified),
                             statusVerified
                     );
-                    Toast.makeText(context, "Check Login Success : " + user.getEmployee().getName(), Toast.LENGTH_LONG).show();
                     view.redirectActivity(eml);
                 }
             }

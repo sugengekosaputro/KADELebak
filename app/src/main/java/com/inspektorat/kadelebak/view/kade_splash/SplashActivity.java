@@ -41,14 +41,12 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Override
     public void redirectActivity(String email) {
-        Toast.makeText(getApplicationContext(), "redirectActivity() SplashActivity : "+email, Toast.LENGTH_SHORT).show();
         goWaitAndAnimateEnd(new DashboardActivity());
     }
 
     @Override
     public void onLogin() {
         goWaitAndAnimateEnd(new LoginActivity());
-        Toast.makeText(getApplicationContext(), "onLogin() SplashActivity", Toast.LENGTH_SHORT).show();
     }
 
     public void goWaitAndAnimateEnd(Activity page) {

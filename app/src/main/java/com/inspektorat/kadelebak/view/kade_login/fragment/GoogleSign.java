@@ -87,7 +87,6 @@ public class GoogleSign extends Fragment implements GoogleApiClient.OnConnection
                 intent.putExtra(GOOGLE_SIGN_NAME, result.getSignInAccount().getDisplayName());
                 intent.putExtra(GOOGLE_SIGN_ID, result.getSignInAccount().getId());
                 startActivity(intent);
-                Toast.makeText(getActivity(), "Google Sign Success : " + result.getSignInAccount().getEmail(), Toast.LENGTH_LONG).show();
 
             } else {
                 Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_LONG).show();
