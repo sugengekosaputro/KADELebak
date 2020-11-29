@@ -1,11 +1,9 @@
 package com.inspektorat.kadelebak.view.kade_login;
 
-import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -27,25 +26,25 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.dialog.MaterialDialogs;
 import com.google.android.material.textfield.TextInputLayout;
 import com.inspektorat.kadelebak.Constant;
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.entity.InstitutionEntity;
 import com.inspektorat.kadelebak.entity.PositionEntity;
+import com.inspektorat.kadelebak.view.Util;
+import com.inspektorat.kadelebak.view.kade_dashboard.DashboardActivity;
 import com.inspektorat.kadelebak.view.kade_login.model.RegisterModel;
 import com.inspektorat.kadelebak.view.kade_login.view.LoginView;
+import com.inspektorat.kadelebak.view.kade_splash.presenter.SplashPresenter;
+import com.inspektorat.kadelebak.view.kade_splash.view.SplashView;
 
 import org.joda.time.LocalDateTime;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -55,7 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 
-public class RegisterActivity extends AppCompatActivity implements LoginView.register {
+public class RegisterActivity extends AppCompatActivity implements LoginView.register, SplashView {
 
     @BindView(R.id.edt_work_unit)
     TextInputLayout edtWorkUnit;
@@ -91,14 +90,18 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     @BindView(R.id.iv_preview)
     ImageView imageView;
 
+    ProgressBar progressBar;
+    AlertDialog alertDialog;
+
     Bitmap bitmap;
     File file;
-    String imagePath;
+    String imagePath, gsEmail, gsName, gsID;
 
     private LoginPresenter presenter;
     private RegisterModel registerModel;
     private String gender, institutionId, positionId;
     private LocalDateTime localDTStart = LocalDateTime.now();
+    SplashPresenter splashPresenter;
 
     public static final int PICK_IMAGE = 212;
 
@@ -110,21 +113,16 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Register");
 
+        gsEmail = getIntent().getStringExtra(Constant.GOOGLE_SIGN_EMAIL);
+        gsName = getIntent().getStringExtra(Constant.GOOGLE_SIGN_NAME);
+        gsID = getIntent().getStringExtra(Constant.GOOGLE_SIGN_ID);
+
+        splashPresenter = new SplashPresenter(this, getApplicationContext(), gsEmail);
         presenter = new LoginPresenter(this, getApplicationContext());
 
+        this.initDataForm();
         this.initSpinner();
         this.setDateListener();
-
-//        radioGroup = findViewById(R.id.radio_group);
-//
-//        radioGroup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-//                gender = radioButton.getText().toString();
-//                Toast.makeText(getApplicationContext(), gender , Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         radioGroup.clearCheck();
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -139,6 +137,11 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
                     gender = "Laki-laki";
             }
         });
+    }
+
+    private void initDataForm() {
+        edtRegisterName.getEditText().setText(gsName);
+        edtRegisterEmail.getEditText().setText(gsEmail);
     }
 
     private void setDateListener() {
@@ -416,11 +419,26 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     public void onRegisterSuccess() {
         Toast.makeText(getApplicationContext(), "Register Berhasil", Toast.LENGTH_SHORT).show();
         this.finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
     @Override
     public void onRegisterFailed() {
         Toast.makeText(getApplicationContext(), "Register Gagal", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoading(boolean isActive) {
+        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        if (isActive) {
+            alertDialog.show();
+        } else {
+            alertDialog.hide();
+        }
     }
 
     @Override
@@ -439,5 +457,23 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    @Override
+    public void redirectActivity(String email) {
+        redirect(new DashboardActivity());
+//        Toast.makeText(getApplicationContext(), "redirectActivity() to Dashboard : "+ email, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLogin() {
+//        Toast.makeText(getApplicationContext(), "onLogin() RegisterActivity", Toast.LENGTH_SHORT).show();
+    }
+
+    public void redirect(Activity page) {
+            Intent I = new Intent(RegisterActivity.this, page.getClass());
+            startActivity(I);
+            Util.animate(this);
+            finish();
     }
 }

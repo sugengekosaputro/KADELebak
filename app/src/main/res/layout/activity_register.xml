@@ -32,6 +32,19 @@
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/edt_register_email"
+				style="@style/InputLayoutDefault"
+				android:layout_marginTop="@dimen/marginSize8"
+				android:hint="@string/label_email"
+				app:errorEnabled="true"
+				app:errorTextColor="@color/red">
+
+				<com.google.android.material.textfield.TextInputEditText
+					style="@style/EditTextDefault"
+					android:inputType="textEmailAddress" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
 				style="@style/InputLayoutDefault"
 				android:layout_marginTop="@dimen/marginSize8"
 				android:id="@+id/edt_register_born_place"
@@ -137,19 +150,6 @@
 				<com.google.android.material.textfield.TextInputEditText
 					style="@style/EditTextDefault"
 					android:inputType="number" />
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/edt_register_email"
-				style="@style/InputLayoutDefault"
-				android:layout_marginTop="@dimen/marginSize8"
-				android:hint="@string/label_email"
-				app:errorEnabled="true"
-				app:errorTextColor="@color/red">
-
-				<com.google.android.material.textfield.TextInputEditText
-					style="@style/EditTextDefault"
-					android:inputType="textEmailAddress" />
 			</com.google.android.material.textfield.TextInputLayout>
 
 			<com.google.android.material.textfield.TextInputLayout

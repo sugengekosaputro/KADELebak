@@ -32,6 +32,8 @@ import com.inspektorat.kadelebak.view.kade_dashboard.view.DashboardView;
 import com.inspektorat.kadelebak.view.kade_profile.ProfilePresenter;
 import com.inspektorat.kadelebak.view.kade_splash.SplashActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -93,7 +95,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
         super.onViewCreated(view, savedInstanceState);
 
         myPreferencesData = MyPreferencesData.getInstance(getActivity());
-        tvName.setText(myPreferencesData.getData(Constant.NAME));
+        tvName.setText(StringUtils.capitalize(myPreferencesData.getData(Constant.NAME).toLowerCase().trim()));
         checkProfile(myPreferencesData.getData(Constant.EMPLOYEE_ID));
         initPresenter();
         setRecyclerview();

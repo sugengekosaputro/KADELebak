@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.inspektorat.kadelebak.R;
 import com.inspektorat.kadelebak.view.kade_dashboard.fragment.HomeFragment;
+import com.inspektorat.kadelebak.view.kade_login.fragment.GoogleSign;
 import com.inspektorat.kadelebak.view.kade_login.fragment.LoginFragment;
 
 import java.util.Objects;
@@ -24,8 +25,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         checkPermission();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fl_login, new LoginFragment())
+//                .commit();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fl_login, new LoginFragment())
+                .replace(R.id.fl_login, new GoogleSign())
                 .commit();
     }
 

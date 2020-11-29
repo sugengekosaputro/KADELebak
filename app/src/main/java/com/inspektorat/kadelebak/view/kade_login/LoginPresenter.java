@@ -104,11 +104,13 @@ public class LoginPresenter extends BasePresenter {
     }
 
     private void retrofitAuth(String email, String pass) {
-        Call<UserAuthEntity> call = this.initService().getDataUser(email, pass);
+        view.onLoading(true);
+        Call<UserAuthEntity> call = this.initService().getDataUser(email);
         call.enqueue(new Callback<UserAuthEntity>() {
             @Override
             public void onResponse(Call<UserAuthEntity> call, Response<UserAuthEntity> response) {
                 if (response.isSuccessful()) {
+                    view.onLoading(false);
                     UserAuthEntity user = response.body();
 
                     userId = user.getUserId();
@@ -161,6 +163,7 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onFailure(Call<UserAuthEntity> call, Throwable t) {
                 t.getMessage();
+                view.onLoading(false);
             }
         });
     }
@@ -252,7 +255,6 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onFailure(Call<List<InstitutionEntity>> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.d("COK", "onFailure: " + t.getMessage());
             }
         });
     }
@@ -302,6 +304,7 @@ public class LoginPresenter extends BasePresenter {
             sectionId = RequestBody.create(MEDIA_TYPE_TEXT, registerModel.getSectionId());
         }
 
+        view.onLoading(true);
         if (httpMethod.contentEquals(Constant.METHOD_POST)) {
             Call<SuccessMessage> call1 = this.initService().submit(
                     name,
@@ -324,11 +327,13 @@ public class LoginPresenter extends BasePresenter {
             call1.enqueue(new Callback<SuccessMessage>() {
                 @Override
                 public void onResponse(Call<SuccessMessage> call, Response<SuccessMessage> response) {
+                    view.onLoading(false);
                     register.onRegisterSuccess();
                 }
 
                 @Override
                 public void onFailure(Call<SuccessMessage> call, Throwable t) {
+                    view.onLoading(false);
                     register.onRegisterFailed();
                 }
             });
@@ -355,11 +360,13 @@ public class LoginPresenter extends BasePresenter {
             update.enqueue(new Callback<SuccessMessage>() {
                 @Override
                 public void onResponse(Call<SuccessMessage> call, Response<SuccessMessage> response) {
+                    view.onLoading(true);
                     upload.onUploaded("Berhasil");
                 }
 
                 @Override
                 public void onFailure(Call<SuccessMessage> call, Throwable t) {
+                    view.onLoading(false);
                     upload.onFailUploaded("Gagal");
                 }
             });

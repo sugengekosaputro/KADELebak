@@ -59,7 +59,6 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        Toast.makeText(getApplicationContext(), "Hello : "+myPreferencesData.getData(Constant.VERIFIED),Toast.LENGTH_SHORT).show();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentContainer, new HomeFragment())

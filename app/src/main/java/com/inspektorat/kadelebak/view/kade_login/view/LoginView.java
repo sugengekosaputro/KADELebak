@@ -16,6 +16,7 @@ public class LoginView {
         void removePasswordValidation();
         void onError(String msg);
         void onSuccess();
+        void onLoading(boolean isActive);
     }
 
     public interface register {
@@ -27,5 +28,6 @@ public class LoginView {
         void renderInstitution(Collection<InstitutionEntity> institutionList);
         void onRegisterSuccess();
         void onRegisterFailed();
+        void onLoading(boolean isActive);
     }
 }

@@ -51,11 +51,12 @@
 		android:text="Masuk" />
 
 	<TextView
+		android:id="@+id/tv_register"
 		style="@style/TextViewMain"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/marginSize16"
 		android:text="Register"
 		android:textColor="@color/blue1"
-		android:textStyle="bold"
 		android:textSize="@dimen/textSize14"
-		android:layout_marginTop="@dimen/marginSize16"
-		android:id="@+id/tv_register"/>
+		android:textStyle="bold" />
 </LinearLayout>
