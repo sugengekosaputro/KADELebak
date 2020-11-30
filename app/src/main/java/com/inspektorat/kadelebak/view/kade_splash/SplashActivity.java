@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         overridePendingTransition(R.anim.fade_in, 0);
         this.myPreferencesData = MyPreferencesData.getInstance(this);
 
-        presenter = new SplashPresenter(this,getApplicationContext(), myPreferencesData.getData(Constant.EMAIL));
+        presenter = new SplashPresenter(this,getApplicationContext(), myPreferencesData.getData(Constant.EMAIL),"");
     }
 
     @Override

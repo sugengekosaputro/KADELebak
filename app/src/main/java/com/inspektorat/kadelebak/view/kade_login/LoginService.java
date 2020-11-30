@@ -24,7 +24,8 @@ public interface LoginService {
 
     @GET("user/login")
     Call<UserAuthEntity> getDataUser(
-            @Query("email") String email);
+            @Query("email") String email,
+            @Query("password") String password);
 
     @GET("position")
     Call<List<PositionEntity>> getDataPosition();

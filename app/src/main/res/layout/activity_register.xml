@@ -160,6 +160,7 @@
 				app:endIconMode="password_toggle"
 				app:helperText="Password Minimal 6 Karakter"
 				app:errorEnabled="true"
+				android:visibility="gone"
 				app:errorTextColor="@color/red">
 
 				<com.google.android.material.textfield.TextInputEditText

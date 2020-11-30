@@ -1,5 +1,6 @@
 package com.inspektorat.kadelebak.view.kade_login.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -51,20 +53,38 @@ public class GoogleSign extends Fragment implements GoogleApiClient.OnConnection
         myPreferencesData.getInstance(getActivity());
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(GoogleSign.this.getResources().getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient
-                .Builder(Objects.requireNonNull(getActivity()).getApplicationContext())
-                .enableAutoManage(getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+        if (googleApiClient == null || !googleApiClient.isConnected()) {
+            try {
+                googleApiClient = new GoogleApiClient
+                        .Builder(Objects.requireNonNull(getActivity()).getApplicationContext())
+                        .enableAutoManage(getActivity(), this)
+                        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                        .build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return view;
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
 
     }
 

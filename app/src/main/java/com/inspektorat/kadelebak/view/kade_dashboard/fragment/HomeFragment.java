@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment implements DashboardView.Fitur {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+//        checkProfile(myPreferencesData.getData(Constant.EMPLOYEE_ID));
         return view;
     }
 

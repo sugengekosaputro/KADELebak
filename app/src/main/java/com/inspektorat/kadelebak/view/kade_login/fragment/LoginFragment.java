@@ -95,11 +95,6 @@ public class LoginFragment extends Fragment implements LoginView.login {
         Util.animate(getActivity());
     }
 
-    @Override
-    public void onLoading(boolean isActive) {
-
-    }
-
     @OnClick(R.id.tv_register)
     void onClickRegister(){
         Intent intent = new Intent(getActivity(), RegisterActivity.class);

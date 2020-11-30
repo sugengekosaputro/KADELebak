@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         gsName = getIntent().getStringExtra(Constant.GOOGLE_SIGN_NAME);
         gsID = getIntent().getStringExtra(Constant.GOOGLE_SIGN_ID);
 
-        splashPresenter = new SplashPresenter(this, getApplicationContext(), gsEmail);
+        splashPresenter = new SplashPresenter(this, getApplicationContext(), gsEmail, gsID);
         presenter = new LoginPresenter(this, getApplicationContext());
 
         this.initDataForm();
@@ -183,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
                 institutionId,
                 positionId,
                 file,
-                edtPassword);
+                gsID);
 
         this.presenter.registerAccount(registerModel);
     }
@@ -199,7 +199,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             String institutionId,
             String positionId,
             File file,
-            TextInputLayout password) {
+            String password) {
         RegisterModel model = new RegisterModel();
         model.setName(name.getEditText().getText().toString());
         model.setDob(dob.getText().toString());
@@ -213,7 +213,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
         model.setRoleId("1");
         model.setSectionId(null);
         model.setFile(file);
-        model.setPassword(password.getEditText().getText().toString());
+        model.setPassword(password);
         return model;
     }
 
@@ -270,12 +270,12 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
             edtRegisterEmail.setError(Constant.FORM_ERROR);
             return false;
         }
-
-        if (!isValidInput(edtPassword) || edtPassword.getEditText().getText().length() < 6 ) {
-            edtPassword.requestFocus();
-            edtPassword.setError("Password minimal 6 karakter");
-            return false;
-        }
+//
+//        if (!isValidInput(edtPassword) || edtPassword.getEditText().getText().length() < 6 ) {
+//            edtPassword.requestFocus();
+//            edtPassword.setError("Password minimal 6 karakter");
+//            return false;
+//        }
 
         return true;
     }
@@ -418,27 +418,13 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     @Override
     public void onRegisterSuccess() {
         Toast.makeText(getApplicationContext(), "Register Berhasil", Toast.LENGTH_SHORT).show();
-        this.finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
+        redirect(new DashboardActivity());
+//        this.finish();
     }
 
     @Override
     public void onRegisterFailed() {
         Toast.makeText(getApplicationContext(), "Register Gagal", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onLoading(boolean isActive) {
-        alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        if (isActive) {
-            alertDialog.show();
-        } else {
-            alertDialog.hide();
-        }
     }
 
     @Override
@@ -462,7 +448,7 @@ public class RegisterActivity extends AppCompatActivity implements LoginView.reg
     @Override
     public void redirectActivity(String email) {
         redirect(new DashboardActivity());
-//        Toast.makeText(getApplicationContext(), "redirectActivity() to Dashboard : "+ email, Toast.LENGTH_SHORT).show();
+//       Toast.makeText(getApplicationContext(), "redirectActivity() to Dashboard : "+ email, Toast.LENGTH_SHORT).show();
     }
 
     @Override

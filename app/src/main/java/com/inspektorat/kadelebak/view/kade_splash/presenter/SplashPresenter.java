@@ -12,6 +12,8 @@ import com.inspektorat.kadelebak.view.kade_login.LoginPresenter;
 import com.inspektorat.kadelebak.view.kade_login.LoginService;
 import com.inspektorat.kadelebak.view.kade_splash.view.SplashView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,6 +40,7 @@ public class SplashPresenter {
     private MyPreferencesData myPreferencesData;
     private Context context;
     private String email;
+    private String pass;
 
     private int userId;
     private int employeeId;
@@ -56,10 +59,11 @@ public class SplashPresenter {
     private boolean verified;
     private int statusVerified;
 
-    public SplashPresenter(SplashView view, Context context, String email) {
+    public SplashPresenter(SplashView view, Context context, String email, String pass) {
         this.view = view;
         this.myPreferencesData = MyPreferencesData.getInstance(context);
         this.email = email;
+        this.pass = pass;
         this.context = context;
         checkPreferences();
     }
@@ -70,12 +74,12 @@ public class SplashPresenter {
         } else if (!myPreferencesData.getData(Constant.USER_ID).isEmpty()) {
             view.redirectActivity(email);
         } else {
-            retrofitAuth(email);
+            retrofitAuth(email, pass);
         }
     }
 
-    private void retrofitAuth(String email) {
-        Call<UserAuthEntity> call = this.initService().getDataUser(email);
+    private void retrofitAuth(String email, String pass) {
+        Call<UserAuthEntity> call = this.initService().getDataUser(email, pass);
         call.enqueue(new Callback<UserAuthEntity>() {
             @Override
             public void onResponse(Call<UserAuthEntity> call, Response<UserAuthEntity> response) {
